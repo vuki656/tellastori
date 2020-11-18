@@ -11,7 +11,10 @@ export const Drawer: React.FunctionComponent<DrawerProps> = (props) => {
     } = props
 
     return (
-        <DrawerRoot variant={variant} {...other}>
+        <DrawerRoot
+            variant={variant}
+            {...other}
+        >
             {children}
         </DrawerRoot>
     )

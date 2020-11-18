@@ -2,12 +2,13 @@ import {
     Arg,
     Mutation,
     Query,
-    Resolver
-} from "type-graphql"
-import { CreatePostInput } from "./mutations/inputs"
-import { CreatePostPayload } from "./mutations/payloads"
-import { PostService } from "./Post.service"
-import { PostType } from "./types"
+    Resolver,
+} from 'type-graphql'
+
+import { CreatePostInput } from './mutations/inputs'
+import { CreatePostPayload } from './mutations/payloads'
+import { PostService } from './Post.service'
+import { PostType } from './types'
 
 @Resolver(() => PostType)
 export class PostResolver {
@@ -19,7 +20,7 @@ export class PostResolver {
 
     @Mutation(() => CreatePostPayload)
     public async createPost(
-        @Arg("input") input: CreatePostInput
+        @Arg('input') input: CreatePostInput
     ): Promise<CreatePostPayload> {
         return this.service.create(input)
     }

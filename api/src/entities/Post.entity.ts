@@ -1,6 +1,7 @@
 import {
     Column,
     Entity,
+    Generated,
     PrimaryGeneratedColumn,
 } from 'typeorm'
 
@@ -11,16 +12,24 @@ export class PostEntity {
     id: string
 
     @Column({
+        name: 'number',
+        nullable: false,
+    })
+    @Generated('increment')
+    number: number
+
+    @Column({
+        name: 'date',
+        nullable: true,
+        type: 'date',
+    })
+    date: Date
+
+    @Column({
         length: 2000,
         nullable: true,
         type: 'varchar',
     })
     note: string
-
-    @Column({
-        type: 'varchar',
-        nullable: false
-    })
-    posterId: string
 
 }

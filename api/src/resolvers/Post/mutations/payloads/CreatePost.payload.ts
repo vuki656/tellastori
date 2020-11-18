@@ -1,8 +1,9 @@
 import {
     Field,
-    ObjectType
-} from "type-graphql"
-import { PostType } from "../../types"
+    ObjectType,
+} from 'type-graphql'
+
+import { PostType } from '../../types'
 
 @ObjectType()
 export class CreatePostPayload {

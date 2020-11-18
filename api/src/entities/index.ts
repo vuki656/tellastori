@@ -1,1 +1,1 @@
-export * from "./Post.entity"
+export * from './Post.entity'

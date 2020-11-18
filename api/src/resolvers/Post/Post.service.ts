@@ -1,13 +1,15 @@
-import { Service } from "typedi"
+import { Service } from 'typedi'
 import {
     EntityRepository,
-    Repository
-} from "typeorm"
-import { InjectRepository } from "typeorm-typedi-extensions"
-import { PostEntity } from "../../entities"
-import { CreatePostInput } from "./mutations/inputs"
-import { CreatePostPayload } from "./mutations/payloads"
-import { PostType } from "./types"
+    Repository,
+} from 'typeorm'
+import { InjectRepository } from 'typeorm-typedi-extensions'
+
+import { PostEntity } from '../../entities'
+
+import { CreatePostInput } from './mutations/inputs'
+import { CreatePostPayload } from './mutations/payloads'
+import { PostType } from './types'
 
 @EntityRepository()
 @Service({ global: true })
@@ -20,7 +22,8 @@ export class PostService {
 
     public async create(input: CreatePostInput) {
         const createdPost = await this.repository.save({
-            note: input.note
+            date: new Date(),
+            note: input.note,
         })
 
         return new CreatePostPayload(createdPost)
@@ -33,4 +36,5 @@ export class PostService {
             return new PostType(post)
         })
     }
+
 }

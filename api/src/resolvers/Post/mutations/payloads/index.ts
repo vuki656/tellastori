@@ -1,1 +1,1 @@
-export * from "./CreatePost.payload"
+export * from './CreatePost.payload'

@@ -1,1 +1,1 @@
-export * from "./CreatePost.input"
+export * from './CreatePost.input'

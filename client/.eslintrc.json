@@ -253,10 +253,6 @@
                 "children": true
             }
         ],
-        "react/jsx-first-prop-new-line": [
-            2,
-            "multiline"
-        ],
         "react/jsx-key": [
             2,
             {
@@ -264,6 +260,8 @@
             }
         ],
         "react/jsx-sort-props": 2,
+        "react/jsx-max-props-per-line": "error",
+        "react/jsx-first-prop-new-line": ["error", "multiline"],
         "react/jsx-tag-spacing": [
             2,
             {

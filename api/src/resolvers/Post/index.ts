@@ -1,2 +1,2 @@
-export * from "./Post.resolver"
-export * from "./Post.service"
+export * from './Post.resolver'
+export * from './Post.service'

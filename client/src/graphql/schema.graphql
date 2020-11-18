@@ -1,0 +1,33 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type CreatePostPayload {
+    post: PostType!
+}
+
+type Mutation {
+    createPost(input: CreatePostInput!): CreatePostPayload!
+}
+
+type PostType {
+    date: Date!
+    id: String!
+    note: String!
+    number: Float!
+}
+
+type Query {
+    posts: [PostType!]!
+}
+
+input CreatePostInput {
+    note: String!
+}
+
+
+"A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar Date
