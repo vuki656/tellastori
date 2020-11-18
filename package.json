@@ -1,0 +1,9 @@
+{
+    "name": "confessions",
+    "license": "UNLICENSED",
+    "private": true,
+    "workspaces": [
+        "client",
+        "api"
+    ]
+}
