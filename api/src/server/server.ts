@@ -4,16 +4,7 @@ import { getSchema } from './schema'
 
 export const startServer = async(): Promise<void> => {
     const port = 4000
-    const server = new ApolloServer({
-        context: ({ req }) => {
-            return {
-                secret: process.env.JWT_SECRET,
-                token: req.headers.token,
-                userId: req.headers.userid,
-            }
-        },
-        schema: await getSchema(),
-    })
+    const server = new ApolloServer({ schema: await getSchema() })
 
     server
     .listen({ port })

@@ -1,11 +1,10 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "api-setup": "./bin/setup-dockerized-services.sh",
-    "api-start": "nodemon src/index.ts",
-    "api-lint": "eslint src/**/*.{ts,tsx}"
+    "setup": "./bin/setup-dockerized-services.sh",
+    "start": "nodemon src/index.ts",
+    "lint": "eslint src/**/*.{ts,tsx}"
   },
   "dependencies": {
     "apollo-server": "^2.19.0",

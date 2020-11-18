@@ -17,4 +17,10 @@ export class PostEntity {
     })
     note: string
 
+    @Column({
+        type: 'varchar',
+        nullable: false
+    })
+    posterId: string
+
 }
