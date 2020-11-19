@@ -1,17 +1,15 @@
 import styled from 'styled-components'
 
-import { Panel } from '../../../ui-kit/components/Panel'
-
-export const HomePostsRoot = styled('div')((props) => ({
-    alignItems: 'center',
+export const HomePostsRoot = styled('div')({
     display: 'flex',
-    flexDirection: 'column',
     justifyContent: 'center',
-    paddingTop: props.theme.spacing.md,
-}))
+    overflow: 'auto',
+})
 
-export const HomePostCard = styled(Panel)((props) => ({
-    marginTop: props.theme.spacing.md,
+export const HomePostsList = styled('div')((props) => ({
+    display: 'grid',
+    padding: props.theme.spacing.md,
+    rowGap: props.theme.spacing.md,
     width: '40%',
 }))
 
@@ -24,12 +22,12 @@ export const HomePostCardHeader = styled('div')((props) => ({
 
 export const HomePostCardNumber = styled('p')((props) => ({
     color: props.theme.palette.grey.light300,
-    fontSize: '12px',
+    fontSize: '13px',
     margin: 0,
 }))
 
 export const HomePostCardDate = styled('p')((props) => ({
     color: props.theme.palette.grey.light300,
-    fontSize: '12px',
+    fontSize: '13px',
     margin: 0,
 }))

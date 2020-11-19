@@ -24,11 +24,11 @@ type ButtonIconTypes =
 
 export const getButtonStyles = (
     theme: Theme,
-    variant: ButtonVariantType,
+    props: ButtonRootTypes,
 ) => {
     let styles: CSSObject = { border: 'none' }
 
-    if (variant === 'primary') {
+    if (props.variant === 'primary') {
         styles = {
             ...styles,
             '&:hover': {
@@ -43,7 +43,7 @@ export const getButtonStyles = (
         }
     }
 
-    if (variant === 'outlined') {
+    if (props.variant === 'outlined') {
         styles = {
             ...styles,
             '&:hover': {
@@ -59,11 +59,19 @@ export const getButtonStyles = (
         }
     }
 
-    if (variant === 'blank') {
+    if (props.variant === 'blank') {
         styles = {
             ...styles,
             backgroundColor: 'transparent',
             cursor: 'pointer',
+        }
+    }
+
+    if (props.disabled) {
+        styles = {
+            ...styles,
+            '&:hover': { backgroundColor: theme.palette.grey.light300 },
+            backgroundColor: theme.palette.grey.light300,
         }
     }
 
@@ -84,7 +92,7 @@ export const ButtonRoot = styled('button')<ButtonRootTypes>((props) => ({
     width: props.fullWidth ?
         '100%' :
         'fit-content',
-    ...getButtonStyles(props.theme, props.variant),
+    ...getButtonStyles(props.theme, props),
 }))
 
 export const ButtonIconWrapper = styled('div')<ButtonIconTypes>((props) => ({

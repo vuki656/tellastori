@@ -11,7 +11,6 @@ export const GlobalStyles = createGlobalStyle<{theme: Theme}>((props) => {
             width: '100%',
         },
         '*': { boxSizing: 'border-box' },
-        '::-webkit-scrollbar': { width: 0 },
         a: {
             color: 'inherit',
             textDecoration: 'none',

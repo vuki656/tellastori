@@ -4,12 +4,13 @@ import * as React from 'react'
 
 import { POSTS } from '../../../graphql/queries'
 import { PostsQuery } from '../../../graphql/types'
+import { Panel } from '../../../ui-kit/components/Panel'
 
 import {
-    HomePostCard,
     HomePostCardDate,
     HomePostCardHeader,
     HomePostCardNumber,
+    HomePostsList,
     HomePostsRoot,
 } from './HomePosts.styles'
 
@@ -18,21 +19,23 @@ export const HomePosts: React.FunctionComponent = () => {
 
     return (
         <HomePostsRoot>
-            {postsData?.posts.map((post) => {
-                return (
-                    <HomePostCard key={post.id}>
-                        <HomePostCardHeader>
-                            <HomePostCardNumber>
+            <HomePostsList>
+                {postsData?.posts.map((post) => {
+                    return (
+                        <Panel key={post.id}>
+                            <HomePostCardHeader>
+                                <HomePostCardNumber>
                                 #{post.number}
-                            </HomePostCardNumber>
-                            <HomePostCardDate>
-                                {dayjs(post.date).format('MM-DD-YYYY')}
-                            </HomePostCardDate>
-                        </HomePostCardHeader>
-                        {post.note}
-                    </HomePostCard>
-                )
-            })}
+                                </HomePostCardNumber>
+                                <HomePostCardDate>
+                                    {dayjs(post.date).format('MM-DD-YYYY')}
+                                </HomePostCardDate>
+                            </HomePostCardHeader>
+                            {post.note}
+                        </Panel>
+                    )
+                })}
+            </HomePostsList>
         </HomePostsRoot>
     )
 }
