@@ -13,6 +13,12 @@ type Mutation {
     createPost(input: CreatePostInput!): CreatePostPayload!
 }
 
+type PaginatedPostsType {
+    hasNext: Boolean!
+    hasPrevious: Boolean!
+    list: [PostType!]!
+}
+
 type PostType {
     date: Date!
     id: String!
@@ -21,7 +27,7 @@ type PostType {
 }
 
 type Query {
-    posts(input: GetAllPostsArgs!): [PostType!]!
+    posts(input: GetAllPostsArgs!): PaginatedPostsType!
 }
 
 input CreatePostInput {

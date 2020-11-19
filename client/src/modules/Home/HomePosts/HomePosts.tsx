@@ -39,7 +39,7 @@ export const HomePosts: React.FunctionComponent = () => {
     return (
         <HomePostsRoot>
             <HomePostsList>
-                {postsData?.posts.map((post) => {
+                {postsData?.posts.list.map((post) => {
                     return (
                         <Panel key={post.id}>
                             <HomePostCardHeader>
@@ -56,18 +56,19 @@ export const HomePosts: React.FunctionComponent = () => {
                 })}
                 <HomePostsListButtons>
                     <Button
-                        disabled={pageNumber === 0}
+                        disabled={!postsData?.posts.hasPrevious}
                         fullWidth
                         onClick={handlePreviousClick}
+                        variant="outlined"
                     >
-                    Previous
+                        Previous
                     </Button>
                     <Button
-                        disabled={postsData?.posts.length === 0}
+                        disabled={!postsData?.posts.hasNext}
                         fullWidth
                         onClick={handleNextClick}
                     >
-                    Next
+                        Next
                     </Button>
                 </HomePostsListButtons>
             </HomePostsList>

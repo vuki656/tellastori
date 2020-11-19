@@ -29,6 +29,13 @@ export type MutationCreatePostArgs = {
   input: CreatePostInput;
 };
 
+export type PaginatedPostsType = {
+  __typename?: 'PaginatedPostsType';
+  hasNext: Scalars['Boolean'];
+  hasPrevious: Scalars['Boolean'];
+  list: Array<PostType>;
+};
+
 export type PostType = {
   __typename?: 'PostType';
   date: Scalars['Date'];
@@ -39,7 +46,7 @@ export type PostType = {
 
 export type Query = {
   __typename?: 'Query';
-  posts: Array<PostType>;
+  posts: PaginatedPostsType;
 };
 
 
@@ -84,8 +91,12 @@ export type PostsQueryVariables = Exact<{
 
 export type PostsQuery = (
   { __typename?: 'Query' }
-  & { posts: Array<(
-    { __typename?: 'PostType' }
-    & PostPayloadFragment
-  )> }
+  & { posts: (
+    { __typename?: 'PaginatedPostsType' }
+    & Pick<PaginatedPostsType, 'hasNext' | 'hasPrevious'>
+    & { list: Array<(
+      { __typename?: 'PostType' }
+      & PostPayloadFragment
+    )> }
+  ) }
 );

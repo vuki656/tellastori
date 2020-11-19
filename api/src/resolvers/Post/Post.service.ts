@@ -10,7 +10,10 @@ import { PostEntity } from '../../entities'
 import { GetAllPostsArgs } from './args'
 import { CreatePostInput } from './mutations/inputs'
 import { CreatePostPayload } from './mutations/payloads'
-import { PostType } from './types'
+import {
+    PaginatedPostsType,
+    PostType,
+} from './types'
 
 const DEFAULT_LIST_SIZE = 20
 
@@ -32,16 +35,20 @@ export class PostService {
         return new CreatePostPayload(createdPost)
     }
 
-    public async getAll(input: GetAllPostsArgs) {
+    public async getPaginated(input: GetAllPostsArgs) {
         const offset = input.pageNumber * DEFAULT_LIST_SIZE
 
-        const [posts] = await this.repository.findAndCount({
+        const [posts, totalPostsLength] = await this.repository.findAndCount({
             skip: offset,
             take: DEFAULT_LIST_SIZE,
         })
 
-        return posts.map((post) => {
-            return new PostType(post)
+        return new PaginatedPostsType({
+            hasNext: totalPostsLength > offset + DEFAULT_LIST_SIZE,
+            hasPrevious: input.pageNumber !== 0,
+            list: posts.map((post) => {
+                return new PostType(post)
+            }),
         })
     }
 
