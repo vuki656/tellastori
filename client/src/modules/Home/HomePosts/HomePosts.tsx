@@ -8,12 +8,13 @@ import {
     PostsQueryVariables,
 } from '../../../graphql/types'
 import { Button } from '../../../ui-kit/components/Button'
-import { Panel } from '../../../ui-kit/components/Panel'
 
 import {
     HomePostCardDate,
     HomePostCardHeader,
+    HomePostCardNote,
     HomePostCardNumber,
+    HomePostsCard,
     HomePostsList,
     HomePostsListButtons,
     HomePostsRoot,
@@ -41,7 +42,7 @@ export const HomePosts: React.FunctionComponent = () => {
             <HomePostsList>
                 {postsData?.posts.list.map((post) => {
                     return (
-                        <Panel key={post.id}>
+                        <HomePostsCard key={post.id}>
                             <HomePostCardHeader>
                                 <HomePostCardNumber>
                                 #{post.number}
@@ -50,8 +51,10 @@ export const HomePosts: React.FunctionComponent = () => {
                                     {dayjs(post.date).format('MM-DD-YYYY')}
                                 </HomePostCardDate>
                             </HomePostCardHeader>
-                            {post.note}
-                        </Panel>
+                            <HomePostCardNote>
+                                {post.note}
+                            </HomePostCardNote>
+                        </HomePostsCard>
                     )
                 })}
                 <HomePostsListButtons>

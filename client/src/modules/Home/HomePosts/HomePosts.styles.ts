@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { Panel } from '../../../ui-kit/components/Panel'
+
 export const HomePostsRoot = styled('div')({
     display: 'flex',
     justifyContent: 'center',
@@ -10,8 +12,12 @@ export const HomePostsList = styled('div')((props) => ({
     display: 'grid',
     padding: props.theme.spacing.md,
     rowGap: props.theme.spacing.md,
-    width: '40%',
 }))
+
+export const HomePostsCard = styled(Panel)({
+    maxWidth: '700px',
+    width: '700px',
+})
 
 export const HomePostCardHeader = styled('div')((props) => ({
     display: 'flex',
@@ -31,6 +37,11 @@ export const HomePostCardDate = styled('p')((props) => ({
     fontSize: '13px',
     margin: 0,
 }))
+
+export const HomePostCardNote = styled('p')({
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+})
 
 export const HomePostsListButtons = styled('div')((props) => ({
     columnGap: props.theme.spacing.md,
