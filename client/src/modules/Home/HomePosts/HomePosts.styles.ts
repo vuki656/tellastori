@@ -31,3 +31,10 @@ export const HomePostCardDate = styled('p')((props) => ({
     fontSize: '13px',
     margin: 0,
 }))
+
+export const HomePostsListButtons = styled('div')((props) => ({
+    columnGap: props.theme.spacing.md,
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    paddingBottom: props.theme.spacing.md,
+}))

@@ -3,7 +3,11 @@ import dayjs from 'dayjs'
 import * as React from 'react'
 
 import { POSTS } from '../../../graphql/queries'
-import { PostsQuery } from '../../../graphql/types'
+import {
+    PostsQuery,
+    PostsQueryVariables,
+} from '../../../graphql/types'
+import { Button } from '../../../ui-kit/components/Button'
 import { Panel } from '../../../ui-kit/components/Panel'
 
 import {
@@ -11,11 +15,26 @@ import {
     HomePostCardHeader,
     HomePostCardNumber,
     HomePostsList,
+    HomePostsListButtons,
     HomePostsRoot,
 } from './HomePosts.styles'
 
 export const HomePosts: React.FunctionComponent = () => {
-    const { data: postsData } = useQuery<PostsQuery>(POSTS)
+    const [pageNumber, setPageNumber] = React.useState(0)
+
+    const { data: postsData } = useQuery<PostsQuery, PostsQueryVariables>(POSTS, { variables: { input: { pageNumber: pageNumber } } })
+
+    const handleNextClick = () => {
+        setPageNumber((pageNumber) => {
+            return pageNumber + 1
+        })
+    }
+
+    const handlePreviousClick = () => {
+        setPageNumber((pageNumber) => {
+            return pageNumber - 1
+        })
+    }
 
     return (
         <HomePostsRoot>
@@ -35,6 +54,22 @@ export const HomePosts: React.FunctionComponent = () => {
                         </Panel>
                     )
                 })}
+                <HomePostsListButtons>
+                    <Button
+                        disabled={pageNumber === 0}
+                        fullWidth
+                        onClick={handlePreviousClick}
+                    >
+                    Previous
+                    </Button>
+                    <Button
+                        disabled={postsData?.posts.length === 0}
+                        fullWidth
+                        onClick={handleNextClick}
+                    >
+                    Next
+                    </Button>
+                </HomePostsListButtons>
             </HomePostsList>
         </HomePostsRoot>
     )

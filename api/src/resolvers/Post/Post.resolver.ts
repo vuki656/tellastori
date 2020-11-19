@@ -5,6 +5,7 @@ import {
     Resolver,
 } from 'type-graphql'
 
+import { GetAllPostsArgs } from './args'
 import { CreatePostInput } from './mutations/inputs'
 import { CreatePostPayload } from './mutations/payloads'
 import { PostService } from './Post.service'
@@ -26,8 +27,10 @@ export class PostResolver {
     }
 
     @Query(() => [PostType])
-    public async posts(): Promise<PostType[]> {
-        return this.service.getAll()
+    public async posts(
+        @Arg('input') input: GetAllPostsArgs
+    ): Promise<PostType[]> {
+        return this.service.getAll(input)
     }
 
 }

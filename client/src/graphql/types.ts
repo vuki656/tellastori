@@ -42,8 +42,17 @@ export type Query = {
   posts: Array<PostType>;
 };
 
+
+export type QueryPostsArgs = {
+  input: GetAllPostsArgs;
+};
+
 export type CreatePostInput = {
   note: Scalars['String'];
+};
+
+export type GetAllPostsArgs = {
+  pageNumber: Scalars['Float'];
 };
 
 
@@ -68,7 +77,9 @@ export type CreatePostMutation = (
   ) }
 );
 
-export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type PostsQueryVariables = Exact<{
+  input: GetAllPostsArgs;
+}>;
 
 
 export type PostsQuery = (

@@ -21,11 +21,15 @@ type PostType {
 }
 
 type Query {
-    posts: [PostType!]!
+    posts(input: GetAllPostsArgs!): [PostType!]!
 }
 
 input CreatePostInput {
     note: String!
+}
+
+input GetAllPostsArgs {
+    pageNumber: Float!
 }
 
 
