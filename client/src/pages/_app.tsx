@@ -1,14 +1,14 @@
 import { ApolloProvider } from '@apollo/client'
+import {
+    createTheme,
+    GlobalStyles,
+    ThemeProvider,
+} from '@dvukovic/dujo-ui'
 import cuid from 'cuid'
 import { AppProps } from 'next/app'
 import React from 'react'
 
 import { useApollo } from '../lib/apolloClient'
-import {
-    createTheme,
-    GlobalStyles,
-    ThemeProvider,
-} from '../ui-kit/styles'
 
 const App = (props: AppProps): JSX.Element => {
     const {

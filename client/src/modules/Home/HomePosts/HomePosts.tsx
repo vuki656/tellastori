@@ -1,4 +1,5 @@
 import { useQuery } from '@apollo/client'
+import { Button } from '@dvukovic/dujo-ui'
 import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import * as React from 'react'
@@ -8,7 +9,6 @@ import {
     PostsQuery,
     PostsQueryVariables,
 } from '../../../graphql/types'
-import { Button } from '../../../ui-kit/components/Button'
 import { HomePostsCard } from '../HomePostsCard'
 
 import {

@@ -1,4 +1,10 @@
 import { useMutation } from '@apollo/client'
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    TextArea,
+} from '@dvukovic/dujo-ui'
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { useFormik } from 'formik'
@@ -10,10 +16,6 @@ import {
     CreatePostMutation,
     CreatePostMutationVariables,
 } from '../../../graphql/types'
-import { Button } from '../../../ui-kit/components/Button'
-import { Dialog } from '../../../ui-kit/components/Dialog'
-import { DialogActions } from '../../../ui-kit/components/DialogActions'
-import { TextArea } from '../../../ui-kit/components/TextArea'
 
 import { DisablePostingMessage } from './HomeCreateNewPostDialog.styles'
 import { HomeCreateNewPostDialogType } from './HomeCreateNewPostDialog.types'

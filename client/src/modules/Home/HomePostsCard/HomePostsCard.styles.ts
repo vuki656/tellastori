@@ -1,7 +1,8 @@
+import {
+    Button,
+    Panel,
+} from '@dvukovic/dujo-ui'
 import styled from 'styled-components'
-
-import { Button } from '../../../ui-kit/components/Button'
-import { Panel } from '../../../ui-kit/components/Panel'
 
 type HomePostsListButtonProps = {
     active?: boolean
