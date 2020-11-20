@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client'
 import dayjs from 'dayjs'
+import advancedFormat from 'dayjs/plugin/advancedFormat'
 import * as React from 'react'
 
 import { POSTS } from '../../../graphql/queries'
@@ -19,6 +20,8 @@ import {
     HomePostsListButtons,
     HomePostsRoot,
 } from './HomePosts.styles'
+
+dayjs.extend(advancedFormat)
 
 export const HomePosts: React.FunctionComponent = () => {
     const [pageNumber, setPageNumber] = React.useState(0)
@@ -48,7 +51,7 @@ export const HomePosts: React.FunctionComponent = () => {
                                 #{post.number}
                                 </HomePostCardNumber>
                                 <HomePostCardDate>
-                                    {dayjs(post.date).format('MM-DD-YYYY')}
+                                    {dayjs(post.date).format('Do MMM YYYY')}
                                 </HomePostCardDate>
                             </HomePostCardHeader>
                             <HomePostCardNote>

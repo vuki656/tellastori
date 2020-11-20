@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { useFormik } from 'formik'
 import * as React from 'react'
-import { useToggle } from 'react-use'
+import * as Yup from 'yup'
 
 import { CREATE_POST } from '../../graphql/mutations'
 import {
@@ -20,8 +20,15 @@ import { CreateNewPostDialogType } from './CreateNewPostDialog.types'
 
 dayjs.extend(isSameOrAfter)
 
+const ValidationSchema = Yup.object().shape({
+    note: Yup.string()
+    .min(10, 'It has to be more than 10 characters 😞')
+    .max(2000, 'That\'s a long one. Make it a bit shorter 🤏')
+    .required('You gotta put something in 🙃'),
+})
+
 export const CreateNewPostDialog: React.FunctionComponent = () => {
-    const [isOpen, toggleIsOpen] = useToggle(false)
+    const [isOpen, setIsOpen] = React.useState(false)
     const [lastPostDate, setLastPostDate] = React.useState<string>('')
 
     const [createPostMutation] = useMutation<CreatePostMutation, CreatePostMutationVariables>(CREATE_POST)
@@ -32,19 +39,26 @@ export const CreateNewPostDialog: React.FunctionComponent = () => {
 
     const form = useFormik<CreateNewPostDialogType>({
         initialValues: { note: '' },
-        onSubmit: (formValues) => {
-            createPostMutation({ variables: { input: { note: formValues.note } } })
-            .then(() => {
-                toggleIsOpen()
-                form.resetForm()
-                setLastPostDate(dayjs().format('MM-DD-YYYY'))
-                localStorage.setItem('last_post_date', dayjs().format('MM-DD-YYYY'))
-            })
-        },
+        onSubmit: (formValues) => handleSubmit(formValues),
+        validateOnChange: false,
+        validationSchema: ValidationSchema,
     })
 
+    const handleSubmit = (formValues: CreateNewPostDialogType) => {
+        createPostMutation({ variables: { input: { note: formValues.note } } })
+        .then(() => {
+            setIsOpen(false)
+            form.resetForm()
+            setLastPostDate(dayjs().format('MM-DD-YYYY'))
+            localStorage.setItem('last_post_date', dayjs().format('MM-DD-YYYY'))
+        })
+        .catch(() => {
+            form.errors.note = 'You did something we didnt know you can do 😲. Please refresh and try again.'
+        })
+    }
+
     const handleCancel = () => {
-        toggleIsOpen()
+        setIsOpen(false)
         form.resetForm()
     }
 
@@ -53,7 +67,7 @@ export const CreateNewPostDialog: React.FunctionComponent = () => {
     return (
         <>
             <Button
-                onClick={toggleIsOpen}
+                onClick={() => setIsOpen(true)}
                 variant="primary"
             >
                 Post
@@ -62,23 +76,22 @@ export const CreateNewPostDialog: React.FunctionComponent = () => {
                 isOpen={isOpen}
                 title="Post a confession"
             >
+                {disablePosting ? (
+                    <DisablePostingMessage>
+                        You can only post once a day. 📅
+                    </DisablePostingMessage>
+                ) : null}
                 <form onSubmit={form.handleSubmit}>
                     <TextArea
+                        error={Boolean(form.errors.note)}
                         fullWidth
+                        helperText={form.errors.note}
                         label="Your confession"
-                        maxLength={2000}
-                        minLength={50}
                         name="note"
                         onChange={form.handleChange}
-                        required
-                        rows={8}
+                        rows={10}
                         value={form.values.note}
                     />
-                    {disablePosting ? (
-                        <DisablePostingMessage>
-                                You can only post once a day. 📅
-                        </DisablePostingMessage>
-                    ) : null}
                     <DialogActions>
                         <Button
                             onClick={handleCancel}
@@ -87,7 +100,7 @@ export const CreateNewPostDialog: React.FunctionComponent = () => {
                             Cancel
                         </Button>
                         <Button
-                            // disabled={disablePosting} //todo: rollback
+                            disabled={disablePosting}
                             type="submit"
                             variant="primary"
                         >

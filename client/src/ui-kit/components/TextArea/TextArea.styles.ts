@@ -71,4 +71,4 @@ export const TextAreaHelperText = styled('p')<TextAreaHelperTextProps>((props) =
     return styles
 })
 
-export const TextAreaErrorIcon = styled(WarningIcon)((props) => ({ fill: props.theme.palette.red }))
+export const TextAreaErrorIcon = styled(WarningIcon)((props) => ({ fill: props.theme.palette.red.main }))
