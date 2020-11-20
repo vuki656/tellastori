@@ -4,7 +4,10 @@ import {
     ObjectType,
 } from 'type-graphql'
 
-import { VoteTypeEnum } from '../../../enums'
+import { PostEntity } from '../../../entities'
+import { VoteType } from '../../Vote/types'
+
+import { PostMetadataType } from './PostMetadata.type'
 
 @ObjectType()
 export class PostType {
@@ -21,28 +24,21 @@ export class PostType {
     @Field()
     number: number
 
-    @Field({ nullable: true })
-    voteType?: VoteTypeEnum
+    @Field(() => [VoteType])
+    votes: VoteType[]
 
-    @Field()
-    positiveCount?: number
-
-    @Field()
-    negativeCount?: number
+    @Field(() => PostMetadataType)
+    metadata?: PostMetadataType
 
     constructor(
-        post: PostType,
-        voteType: VoteTypeEnum | undefined,
-        positiveCount: number,
-        negativeCount: number,
+        post: PostEntity,
+        metadata: PostMetadataType,
     ) {
         this.id = post.id
         this.note = post.note
         this.date = post.date
         this.number = post.number
-        this.negativeCount = negativeCount
-        this.positiveCount = positiveCount
-        this.voteType = voteType
+        this.metadata = metadata
     }
 
 }

@@ -22,7 +22,10 @@ dayjs.extend(advancedFormat)
 export const HomePosts: React.FunctionComponent = () => {
     const [pageNumber, setPageNumber] = React.useState(0)
 
-    const { data: postsData } = useQuery<PostsQuery, PostsQueryVariables>(
+    const {
+        data: postsData,
+        refetch,
+    } = useQuery<PostsQuery, PostsQueryVariables>(
         POSTS,
         { variables: { input: { pageNumber: pageNumber } } }
     )
@@ -46,6 +49,7 @@ export const HomePosts: React.FunctionComponent = () => {
                     return (
                         <HomePostsCard
                             key={post.id}
+                            onChange={refetch}
                             post={post}
                         />
                     )

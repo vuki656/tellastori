@@ -24,30 +24,37 @@ import {
 import { HomePostsCardProps } from './HomePostsCard.types'
 
 export const HomePostsCard: React.FunctionComponent<HomePostsCardProps> = (props) => {
-    const { post } = props
+    const {
+        post,
+        onChange,
+    } = props
 
     const [voteMutation] = useMutation<VoteMutation, VoteMutationVariables>(VOTE)
 
-    const handlePositiveVote = () => {
+    const handleVote = (voteType: VoteTypeEnum) => {
+        if (post.metadata?.voteType) {
+            return
+        }
+
         voteMutation({
             variables: {
                 input: {
                     postId: post.id,
-                    voteType: VoteTypeEnum.Positive,
+                    voteType: voteType,
                 },
             },
+        })
+        .then(() => {
+            onChange()
         })
     }
 
+    const handlePositiveVote = () => {
+        handleVote(VoteTypeEnum.Positive)
+    }
+
     const handleNegativeVote = () => {
-        voteMutation({
-            variables: {
-                input: {
-                    postId: post.id,
-                    voteType: VoteTypeEnum.Negative,
-                },
-            },
-        })
+        handleVote(VoteTypeEnum.Negative)
     }
 
     return (
@@ -67,20 +74,20 @@ export const HomePostsCard: React.FunctionComponent<HomePostsCardProps> = (props
             </HomePostsCardContent>
             <HomePostCardButtons>
                 <HomePostsListLeftButton
-                    active={post.voteType === VoteTypeEnum.Positive}
+                    active={post.metadata?.voteType === VoteTypeEnum.Positive}
                     fullWidth
                     onClick={handlePositiveVote}
                     variant="blank"
                 >
-                    👍 Yes <HomePostCardCount>{post.positiveCount}</HomePostCardCount>
+                    👍 Yes <HomePostCardCount>{post.metadata?.positiveCount}</HomePostCardCount>
                 </HomePostsListLeftButton>
                 <HomePostsListRightButton
-                    active={post.voteType === VoteTypeEnum.Negative}
+                    active={post.metadata?.voteType === VoteTypeEnum.Negative}
                     fullWidth
                     onClick={handleNegativeVote}
                     variant="blank"
                 >
-                    😑 No<HomePostCardCount>{post.negativeCount}</HomePostCardCount>
+                    😑 No<HomePostCardCount>{post.metadata?.negativeCount}</HomePostCardCount>
                 </HomePostsListRightButton>
             </HomePostCardButtons>
         </HomePostsCardRoot>

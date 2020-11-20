@@ -10,6 +10,7 @@ import { VoteEntity } from '../../entities'
 
 import { VoteInput } from './mutations/inputs'
 import { VotePayload } from './mutations/payloads'
+import { VoteType } from './types'
 
 @EntityRepository()
 @Service({ global: true })
@@ -30,7 +31,7 @@ export class VoteService {
             userId: context.userId,
         })
 
-        return new VotePayload(createdVote)
+        return new VotePayload(new VoteType(createdVote))
     }
 
 }

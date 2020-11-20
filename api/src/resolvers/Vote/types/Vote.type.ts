@@ -4,7 +4,6 @@ import {
 } from 'type-graphql'
 
 import { VoteTypeEnum } from '../../../enums'
-import { PostType } from '../../Post/types'
 
 @ObjectType()
 export class VoteType {
@@ -14,9 +13,6 @@ export class VoteType {
 
     @Field()
     userId: string
-
-    @Field()
-    post: PostType
 
     @Field(() => VoteTypeEnum)
     type: VoteTypeEnum

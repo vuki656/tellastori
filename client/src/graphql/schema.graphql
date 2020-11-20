@@ -20,14 +20,19 @@ type PaginatedPostsType {
     list: [PostType!]!
 }
 
+type PostMetadataType {
+    negativeCount: Float!
+    positiveCount: Float!
+    voteType: VoteTypeEnum
+}
+
 type PostType {
     date: Date!
     id: String!
-    negativeCount: Float!
+    metadata: PostMetadataType!
     note: String!
     number: Float!
-    positiveCount: Float!
-    voteType: String
+    votes: [VoteType!]!
 }
 
 type Query {
@@ -40,7 +45,6 @@ type VotePayload {
 
 type VoteType {
     id: String!
-    post: PostType!
     type: VoteTypeEnum!
     userId: String!
 }

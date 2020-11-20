@@ -42,15 +42,21 @@ export type PaginatedPostsType = {
   list: Array<PostType>;
 };
 
+export type PostMetadataType = {
+  __typename?: 'PostMetadataType';
+  negativeCount: Scalars['Float'];
+  positiveCount: Scalars['Float'];
+  voteType?: Maybe<VoteTypeEnum>;
+};
+
 export type PostType = {
   __typename?: 'PostType';
   date: Scalars['Date'];
   id: Scalars['String'];
-  negativeCount: Scalars['Float'];
+  metadata: PostMetadataType;
   note: Scalars['String'];
   number: Scalars['Float'];
-  positiveCount: Scalars['Float'];
-  voteType?: Maybe<Scalars['String']>;
+  votes: Array<VoteType>;
 };
 
 export type Query = {
@@ -71,7 +77,6 @@ export type VotePayload = {
 export type VoteType = {
   __typename?: 'VoteType';
   id: Scalars['String'];
-  post: PostType;
   type: VoteTypeEnum;
   userId: Scalars['String'];
 };
@@ -97,16 +102,16 @@ export type VoteInput = {
 
 export type PostPayloadFragment = (
   { __typename?: 'PostType' }
-  & Pick<PostType, 'id' | 'note' | 'date' | 'number' | 'voteType' | 'negativeCount' | 'positiveCount'>
+  & Pick<PostType, 'id' | 'note' | 'date' | 'number'>
+  & { metadata: (
+    { __typename?: 'PostMetadataType' }
+    & Pick<PostMetadataType, 'voteType' | 'negativeCount' | 'positiveCount'>
+  ) }
 );
 
 export type VotePayloadFragment = (
   { __typename?: 'VoteType' }
   & Pick<VoteType, 'id' | 'type' | 'userId'>
-  & { post: (
-    { __typename?: 'PostType' }
-    & Pick<PostType, 'id'>
-  ) }
 );
 
 export type CreatePostMutationVariables = Exact<{
