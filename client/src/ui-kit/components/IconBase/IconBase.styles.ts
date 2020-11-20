@@ -1,13 +1,12 @@
 import React from 'react'
 import styled, { CSSObject } from 'styled-components'
 
+import { IconCommonProps } from '../../icons/Icon.types'
 import { IconSizeType } from '../../styles'
 
 type SvgRootProps =
     React.SVGAttributes<SVGElement>
-    & {
-    size: IconSizeType,
-}
+    & IconCommonProps
 
 export const SvgRoot = styled('svg')<SvgRootProps>((props) => {
     const styles: CSSObject = { ...getSize(props.size) }

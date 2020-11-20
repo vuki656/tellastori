@@ -2,12 +2,15 @@ import React from 'react'
 import { animated } from 'react-spring'
 import styled, { CSSObject } from 'styled-components'
 
+import { CheckIcon } from '../../icons/CheckIcon'
+import { InfoIcon } from '../../icons/InfoIcon'
 import { WarningIcon } from '../../icons/WarningIcon'
-import { NotificationVariantType } from '../../styles'
 
-type NotificationRootProps = React.HTMLAttributes<HTMLDivElement> & {
-    variant: NotificationVariantType
-}
+import { NotificationProps } from './Notification.types'
+
+type NotificationRootProps =
+    React.HTMLAttributes<HTMLDivElement>
+    & Pick<NotificationProps, 'variant'>
 
 export const NotificationRoot = styled(animated.div as unknown as 'div')<NotificationRootProps>((props) => {
     let styles: CSSObject = {
@@ -46,6 +49,12 @@ export const NotificationRoot = styled(animated.div as unknown as 'div')<Notific
 })
 
 export const NotificationErrorIcon = styled(WarningIcon)((props) => ({ fill: props.theme.palette.white }))
+
+export const NotificationWarningIcon = styled(WarningIcon)((props) => ({ fill: props.theme.palette.white }))
+
+export const NotificationInfoIcon = styled(InfoIcon)((props) => ({ fill: props.theme.palette.white }))
+
+export const NotificationSuccessIcon = styled(CheckIcon)((props) => ({ fill: props.theme.palette.white }))
 
 export const NotificationMessage = styled('p')((props) => ({
     fontSize: '15px',

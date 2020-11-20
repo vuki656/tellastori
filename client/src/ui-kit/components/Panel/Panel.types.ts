@@ -2,6 +2,6 @@ import React from 'react'
 
 import { SpacingType } from '../../styles'
 
-export interface PanelProps extends React.HTMLAttributes<HTMLDivElement> {
+export type PanelProps = React.HTMLAttributes<HTMLDivElement> & {
     spacing?: SpacingType,
 }

@@ -1,9 +1,11 @@
 import React from 'react'
 import styled, { CSSObject } from 'styled-components'
 
-type DatePickerRootProps = React.HTMLAttributes<HTMLDivElement> & {
-    fullWidth: boolean,
-}
+import { DatePickerProps } from './DatePicker.types'
+
+type DatePickerRootProps =
+    React.HTMLAttributes<HTMLDivElement>
+    & Pick<DatePickerProps, 'fullWidth'>
 
 export const DatePickerRoot = styled('div')<DatePickerRootProps>((props) => {
     let styles: CSSObject = {

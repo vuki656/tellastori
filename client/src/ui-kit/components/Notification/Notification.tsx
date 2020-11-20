@@ -3,13 +3,10 @@ import * as React from 'react'
 import {
     NotificationErrorIcon,
     NotificationInfoIcon,
-    NotificationSuccessIcon,
-    NotificationWarningIcon,
-} from '../NotificationProvider/NotificationProvider.styles'
-
-import {
     NotificationMessage,
     NotificationRoot,
+    NotificationSuccessIcon,
+    NotificationWarningIcon,
 } from './Notification.styles'
 import { NotificationProps } from './Notification.types'
 

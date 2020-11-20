@@ -3,11 +3,15 @@ import styled, { CSSObject } from 'styled-components'
 
 import { WarningIcon } from '../../icons/WarningIcon'
 
+import { TextAreaProps } from './TextArea.types'
+
 type TextAreaRootProps =
     React.HTMLAttributes<HTMLDivElement>
-    & {
-    fullWidth: boolean,
-}
+    & Pick<TextAreaProps, 'fullWidth'>
+
+type TextAreaHelperTextProps =
+    React.HTMLAttributes<HTMLParagraphElement>
+    & Pick<TextAreaProps, 'error'>
 
 export const TextAreaRoot = styled('div')<TextAreaRootProps>((props) => {
     let styles: CSSObject = { margin: '10px 0' }
@@ -48,10 +52,6 @@ export const TextAreaHelperWrapper = styled('div')({
     margin: '5px 0 0 0',
     padding: '0 3px',
 })
-
-type TextAreaHelperTextProps = React.HTMLAttributes<HTMLParagraphElement> & {
-    error: boolean,
-}
 
 export const TextAreaHelperText = styled('p')<TextAreaHelperTextProps>((props) => {
     let styles: CSSObject = {

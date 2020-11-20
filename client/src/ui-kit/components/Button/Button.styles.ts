@@ -4,17 +4,13 @@ import styled, {
     keyframes,
 } from 'styled-components'
 
-import {
-    ButtonVariantType,
-    Theme,
-} from '../../styles'
+import { Theme } from '../../styles'
+
+import { ButtonProps } from './Button.types'
 
 type ButtonRootTypes =
     React.ButtonHTMLAttributes<HTMLButtonElement>
-    & {
-    variant: ButtonVariantType,
-    fullWidth: boolean,
-}
+    & Pick<ButtonProps, 'variant' | 'fullWidth'>
 
 type ButtonIconTypes =
     React.HTMLAttributes<HTMLDivElement>

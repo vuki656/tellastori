@@ -11,7 +11,7 @@ type PostType = {
     note: string,
     date: string,
     number: number
-    metadata?: PostMetadataType
+    metadata?: PostMetadataType | null
 }
 
 export type HomePostsCardProps = {

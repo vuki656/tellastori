@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { DrawerIconButtonProps } from './DrawerIconButton.types'
+
 type DrawerIconButtonRootProps =
     React.HTMLAttributes<HTMLDivElement>
-    & {
-    selected: boolean,
-}
+    & Pick<DrawerIconButtonProps, 'selected'>
 
 export const DrawerIconButtonRoot = styled('div')<DrawerIconButtonRootProps>((props) => ({
     '& svg': {

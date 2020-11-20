@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { SpacingType } from '../../styles'
+import { PanelProps } from './Panel.types'
 
-type PanelRootProps = React.HTMLAttributes<HTMLDivElement> & {
-    spacing: SpacingType,
-}
+type PanelRootProps =
+    React.HTMLAttributes<HTMLDivElement>
+    & Pick<PanelProps, 'spacing'>
 
 export const PanelRoot = styled('div')<PanelRootProps>((props) => ({
     backgroundColor: props.theme.palette.white,

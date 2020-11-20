@@ -1,11 +1,11 @@
 import React from 'react'
 import styled, { CSSObject } from 'styled-components'
 
-import { DrawerVariantType } from '../../styles'
+import { DrawerProps } from './Drawer.types'
 
-type DrawerRootProps = React.HTMLAttributes<HTMLDivElement> & {
-    variant: DrawerVariantType
-}
+type DrawerRootProps =
+    React.HTMLAttributes<HTMLDivElement>
+    & Pick<DrawerProps, 'variant'>
 
 export const DrawerRoot = styled('div')<DrawerRootProps>((props) => {
     let styles: CSSObject = {
