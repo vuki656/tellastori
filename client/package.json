@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.7",
-    "@dvukovic/dujo-ui": "^1.1.1",
+    "@dvukovic/dujo-ui": "^0.0.0",
     "cuid": "^2.1.8",
     "dayjs": "^1.9.6",
     "formik": "^2.2.5",

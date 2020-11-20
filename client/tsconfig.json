@@ -15,7 +15,6 @@
         "esModuleInterop": true,
         "module": "esnext",
         "moduleResolution": "node",
-        "noImplicitAny": false, // TODO: FIX
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
