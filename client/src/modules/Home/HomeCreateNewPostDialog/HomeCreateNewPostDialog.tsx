@@ -5,18 +5,18 @@ import { useFormik } from 'formik'
 import * as React from 'react'
 import * as Yup from 'yup'
 
-import { CREATE_POST } from '../../graphql/mutations'
+import { CREATE_POST } from '../../../graphql/mutations'
 import {
     CreatePostMutation,
     CreatePostMutationVariables,
-} from '../../graphql/types'
-import { Button } from '../../ui-kit/components/Button'
-import { Dialog } from '../../ui-kit/components/Dialog'
-import { DialogActions } from '../../ui-kit/components/DialogActions'
-import { TextArea } from '../../ui-kit/components/TextArea'
+} from '../../../graphql/types'
+import { Button } from '../../../ui-kit/components/Button'
+import { Dialog } from '../../../ui-kit/components/Dialog'
+import { DialogActions } from '../../../ui-kit/components/DialogActions'
+import { TextArea } from '../../../ui-kit/components/TextArea'
 
-import { DisablePostingMessage } from './CreateNewPostDialog.styles'
-import { CreateNewPostDialogType } from './CreateNewPostDialog.types'
+import { DisablePostingMessage } from './HomeCreateNewPostDialog.styles'
+import { HomeCreateNewPostDialogType } from './HomeCreateNewPostDialog.types'
 
 dayjs.extend(isSameOrAfter)
 
@@ -27,33 +27,34 @@ const ValidationSchema = Yup.object().shape({
     .required('You gotta put something in 🙃'),
 })
 
-export const CreateNewPostDialog: React.FunctionComponent = () => {
+export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
     const [isOpen, setIsOpen] = React.useState(false)
     const [lastPostDate, setLastPostDate] = React.useState<string>('')
 
     const [createPostMutation] = useMutation<CreatePostMutation, CreatePostMutationVariables>(CREATE_POST)
 
     React.useEffect(() => {
-        setLastPostDate(localStorage.getItem('last_post_date') ?? '')
+        setLastPostDate(localStorage.getItem('lastPostDate') ?? '')
     }, [])
 
-    const form = useFormik<CreateNewPostDialogType>({
+    const form = useFormik<HomeCreateNewPostDialogType>({
         initialValues: { note: '' },
         onSubmit: (formValues) => handleSubmit(formValues),
         validateOnChange: false,
         validationSchema: ValidationSchema,
     })
 
-    const handleSubmit = (formValues: CreateNewPostDialogType) => {
+    const handleSubmit = (formValues: HomeCreateNewPostDialogType) => {
         createPostMutation({ variables: { input: { note: formValues.note } } })
         .then(() => {
             setIsOpen(false)
             form.resetForm()
+
             setLastPostDate(dayjs().format('MM-DD-YYYY'))
-            localStorage.setItem('last_post_date', dayjs().format('MM-DD-YYYY'))
+            localStorage.setItem('lastPostDate', dayjs().format('MM-DD-YYYY'))
         })
         .catch(() => {
-            form.errors.note = 'You did something we didnt know you can do 😲. Please refresh and try again.'
+            form.errors.note = 'You did something we didn\'t know you can do 😲. Please refresh and try again.'
         })
     }
 

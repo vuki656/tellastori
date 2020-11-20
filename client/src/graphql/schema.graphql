@@ -29,7 +29,7 @@ type PostMetadataType {
 type PostType {
     date: Date!
     id: String!
-    metadata: PostMetadataType!
+    metadata: PostMetadataType
     note: String!
     number: Float!
     votes: [VoteType!]!

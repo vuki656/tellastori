@@ -27,7 +27,7 @@ export class PostType {
     @Field(() => [VoteType])
     votes: VoteType[]
 
-    @Field(() => PostMetadataType)
+    @Field(() => PostMetadataType, { nullable: true })
     metadata?: PostMetadataType
 
     constructor(

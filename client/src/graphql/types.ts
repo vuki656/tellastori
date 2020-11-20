@@ -53,7 +53,7 @@ export type PostType = {
   __typename?: 'PostType';
   date: Scalars['Date'];
   id: Scalars['String'];
-  metadata: PostMetadataType;
+  metadata?: Maybe<PostMetadataType>;
   note: Scalars['String'];
   number: Scalars['Float'];
   votes: Array<VoteType>;
@@ -103,10 +103,10 @@ export type VoteInput = {
 export type PostPayloadFragment = (
   { __typename?: 'PostType' }
   & Pick<PostType, 'id' | 'note' | 'date' | 'number'>
-  & { metadata: (
+  & { metadata?: Maybe<(
     { __typename?: 'PostMetadataType' }
     & Pick<PostMetadataType, 'voteType' | 'negativeCount' | 'positiveCount'>
-  ) }
+  )> }
 );
 
 export type VotePayloadFragment = (
