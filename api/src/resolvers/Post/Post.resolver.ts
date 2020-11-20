@@ -1,9 +1,12 @@
 import {
     Arg,
+    Ctx,
     Mutation,
     Query,
     Resolver,
 } from 'type-graphql'
+
+import { ContextType } from '../../../global/types'
 
 import { GetAllPostsArgs } from './args'
 import { CreatePostInput } from './mutations/inputs'
@@ -22,18 +25,19 @@ export class PostResolver {
     ) {
     }
 
+    @Query(() => PaginatedPostsType)
+    public async posts(
+        @Arg('input') input: GetAllPostsArgs,
+        @Ctx() context: ContextType,
+    ): Promise<PaginatedPostsType> {
+        return this.service.getPaginated(input, context)
+    }
+
     @Mutation(() => CreatePostPayload)
     public async createPost(
         @Arg('input') input: CreatePostInput
     ): Promise<CreatePostPayload> {
         return this.service.create(input)
-    }
-
-    @Query(() => PaginatedPostsType)
-    public async posts(
-        @Arg('input') input: GetAllPostsArgs
-    ): Promise<PaginatedPostsType> {
-        return this.service.getPaginated(input)
     }
 
 }

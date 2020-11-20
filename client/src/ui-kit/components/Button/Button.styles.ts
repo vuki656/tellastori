@@ -62,8 +62,13 @@ export const getButtonStyles = (
     if (props.variant === 'blank') {
         styles = {
             ...styles,
+            '&:hover': {
+                backgroundColor: theme.palette.grey.light500,
+                cursor: 'pointer',
+            },
             backgroundColor: 'transparent',
             cursor: 'pointer',
+            transition: theme.transitions.create('background-color', 200),
         }
     }
 

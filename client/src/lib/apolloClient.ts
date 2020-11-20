@@ -4,6 +4,7 @@ import {
     InMemoryCache,
     NormalizedCacheObject,
 } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import getConfig from 'next/config'
 import { useMemo } from 'react'
 
@@ -19,9 +20,22 @@ const createApolloClient = () => {
         uri: publicRuntimeConfig.API_URL,
     })
 
+    const authLink = setContext((operation, prevContext) => {
+        const { headers } = prevContext
+
+        const userId = !ssrInProgress && localStorage.getItem('userId')
+
+        return {
+            headers: {
+                ...headers,
+                userId: userId ?? '',
+            },
+        }
+    })
+
     return new ApolloClient({
         cache: new InMemoryCache(),
-        link: httpLink,
+        link: authLink.concat(httpLink),
         ssrMode: ssrInProgress,
     })
 }

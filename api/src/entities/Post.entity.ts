@@ -2,8 +2,11 @@ import {
     Column,
     Entity,
     Generated,
+    OneToMany,
     PrimaryGeneratedColumn,
 } from 'typeorm'
+
+import { VoteEntity } from './Vote.entity'
 
 @Entity('post')
 export class PostEntity {
@@ -31,5 +34,8 @@ export class PostEntity {
         type: 'varchar',
     })
     note: string
+
+    @OneToMany(() => VoteEntity, (vote) => vote.post, { eager: true })
+    votes: VoteEntity[]
 
 }

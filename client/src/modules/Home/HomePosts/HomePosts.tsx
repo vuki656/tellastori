@@ -9,13 +9,9 @@ import {
     PostsQueryVariables,
 } from '../../../graphql/types'
 import { Button } from '../../../ui-kit/components/Button'
+import { HomePostsCard } from '../HomePostsCard'
 
 import {
-    HomePostCardDate,
-    HomePostCardHeader,
-    HomePostCardNote,
-    HomePostCardNumber,
-    HomePostsCard,
     HomePostsList,
     HomePostsListButtons,
     HomePostsRoot,
@@ -26,7 +22,10 @@ dayjs.extend(advancedFormat)
 export const HomePosts: React.FunctionComponent = () => {
     const [pageNumber, setPageNumber] = React.useState(0)
 
-    const { data: postsData } = useQuery<PostsQuery, PostsQueryVariables>(POSTS, { variables: { input: { pageNumber: pageNumber } } })
+    const { data: postsData } = useQuery<PostsQuery, PostsQueryVariables>(
+        POSTS,
+        { variables: { input: { pageNumber: pageNumber } } }
+    )
 
     const handleNextClick = () => {
         setPageNumber((pageNumber) => {
@@ -45,19 +44,10 @@ export const HomePosts: React.FunctionComponent = () => {
             <HomePostsList>
                 {postsData?.posts.list.map((post) => {
                     return (
-                        <HomePostsCard key={post.id}>
-                            <HomePostCardHeader>
-                                <HomePostCardNumber>
-                                #{post.number}
-                                </HomePostCardNumber>
-                                <HomePostCardDate>
-                                    {dayjs(post.date).format('Do MMM YYYY')}
-                                </HomePostCardDate>
-                            </HomePostCardHeader>
-                            <HomePostCardNote>
-                                {post.note}
-                            </HomePostCardNote>
-                        </HomePostsCard>
+                        <HomePostsCard
+                            key={post.id}
+                            post={post}
+                        />
                     )
                 })}
                 <HomePostsListButtons>

@@ -1,4 +1,5 @@
 import { ApolloProvider } from '@apollo/client'
+import cuid from 'cuid'
 import { AppProps } from 'next/app'
 import React from 'react'
 
@@ -17,6 +18,18 @@ const App = (props: AppProps): JSX.Element => {
 
     const client = useApollo(pageProps.initialApolloState)
     const theme = createTheme()
+
+    const assignId = () => {
+        const userId = localStorage.getItem('userId')
+
+        if (!userId) {
+            localStorage.setItem('userId', cuid())
+        }
+    }
+
+    React.useEffect(() => {
+        assignId()
+    }, [])
 
     return (
         <ApolloProvider client={client}>

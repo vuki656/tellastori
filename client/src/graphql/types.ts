@@ -22,11 +22,17 @@ export type CreatePostPayload = {
 export type Mutation = {
   __typename?: 'Mutation';
   createPost: CreatePostPayload;
+  vote: VotePayload;
 };
 
 
 export type MutationCreatePostArgs = {
   input: CreatePostInput;
+};
+
+
+export type MutationVoteArgs = {
+  input: VoteInput;
 };
 
 export type PaginatedPostsType = {
@@ -40,8 +46,11 @@ export type PostType = {
   __typename?: 'PostType';
   date: Scalars['Date'];
   id: Scalars['String'];
+  negativeCount: Scalars['Float'];
   note: Scalars['String'];
   number: Scalars['Float'];
+  positiveCount: Scalars['Float'];
+  voteType?: Maybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -54,6 +63,24 @@ export type QueryPostsArgs = {
   input: GetAllPostsArgs;
 };
 
+export type VotePayload = {
+  __typename?: 'VotePayload';
+  vote: VoteType;
+};
+
+export type VoteType = {
+  __typename?: 'VoteType';
+  id: Scalars['String'];
+  post: PostType;
+  type: VoteTypeEnum;
+  userId: Scalars['String'];
+};
+
+export enum VoteTypeEnum {
+  Negative = 'negative',
+  Positive = 'positive'
+}
+
 export type CreatePostInput = {
   note: Scalars['String'];
 };
@@ -62,10 +89,24 @@ export type GetAllPostsArgs = {
   pageNumber: Scalars['Float'];
 };
 
+export type VoteInput = {
+  postId: Scalars['String'];
+  voteType: VoteTypeEnum;
+};
+
 
 export type PostPayloadFragment = (
   { __typename?: 'PostType' }
-  & Pick<PostType, 'id' | 'note' | 'date' | 'number'>
+  & Pick<PostType, 'id' | 'note' | 'date' | 'number' | 'voteType' | 'negativeCount' | 'positiveCount'>
+);
+
+export type VotePayloadFragment = (
+  { __typename?: 'VoteType' }
+  & Pick<VoteType, 'id' | 'type' | 'userId'>
+  & { post: (
+    { __typename?: 'PostType' }
+    & Pick<PostType, 'id'>
+  ) }
 );
 
 export type CreatePostMutationVariables = Exact<{
@@ -80,6 +121,22 @@ export type CreatePostMutation = (
     & { post: (
       { __typename?: 'PostType' }
       & PostPayloadFragment
+    ) }
+  ) }
+);
+
+export type VoteMutationVariables = Exact<{
+  input: VoteInput;
+}>;
+
+
+export type VoteMutation = (
+  { __typename?: 'Mutation' }
+  & { vote: (
+    { __typename?: 'VotePayload' }
+    & { vote: (
+      { __typename?: 'VoteType' }
+      & VotePayloadFragment
     ) }
   ) }
 );

@@ -6,5 +6,8 @@ export const POST_PAYLOAD = gql`
         note
         date
         number
+        voteType
+        negativeCount
+        positiveCount
     }
 `

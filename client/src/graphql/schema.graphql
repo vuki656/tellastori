@@ -11,6 +11,7 @@ type CreatePostPayload {
 
 type Mutation {
     createPost(input: CreatePostInput!): CreatePostPayload!
+    vote(input: VoteInput!): VotePayload!
 }
 
 type PaginatedPostsType {
@@ -22,12 +23,31 @@ type PaginatedPostsType {
 type PostType {
     date: Date!
     id: String!
+    negativeCount: Float!
     note: String!
     number: Float!
+    positiveCount: Float!
+    voteType: String
 }
 
 type Query {
     posts(input: GetAllPostsArgs!): PaginatedPostsType!
+}
+
+type VotePayload {
+    vote: VoteType!
+}
+
+type VoteType {
+    id: String!
+    post: PostType!
+    type: VoteTypeEnum!
+    userId: String!
+}
+
+enum VoteTypeEnum {
+    negative
+    positive
 }
 
 input CreatePostInput {
@@ -36,6 +56,11 @@ input CreatePostInput {
 
 input GetAllPostsArgs {
     pageNumber: Float!
+}
+
+input VoteInput {
+    postId: String!
+    voteType: VoteTypeEnum!
 }
 
 
