@@ -1,0 +1,7 @@
+import 'reflect-metadata'
+import { buildSchemaSync } from 'type-graphql'
+import { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
+
+import * as resolvers from '../resolvers'
+
+buildSchemaSync({ resolvers: [...Object.values(resolvers)] as unknown as NonEmptyArray<string> })
