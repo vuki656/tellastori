@@ -1,6 +1,8 @@
 name: AWS Deploy
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -17,7 +19,6 @@ jobs:
             **/client/node_modules
             **/api/node_modules
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
-
       - run: yarn install
 
       - name: Lint Client
@@ -42,7 +43,6 @@ jobs:
             **/api/node_modules
             ${{ github.workspace }}/client/.next/cache
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/yarn.lock') }}
-
       - run: yarn install
 
       - name: Validate API Build
@@ -60,12 +60,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Get Version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
-        with:
-          path: ./api/
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -77,12 +71,33 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-#       - name: Build, tag, and push image to Amazon ECR
-#         env:
-#           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-#           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-#           IMAGE_TAG: API-${{ steps.package-version.outputs.current-version }}
-#         run: |
-#           cd api
-#           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-#           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Get API Version
+        id: api-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./api/
+
+      - name: API ECR build, tag, push
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: API-${{ steps.api-version.outputs.current-version }}
+        run: |
+          cd api
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Get Client Version
+        id: client-version
+        uses: martinbeentjes/npm-get-version-action@master
+        with:
+          path: ./client/
+
+      - name: Client ECR build, tag, push
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: CLIENT-${{ steps.client-version.outputs.current-version }}
+        run: |
+          cd client
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
