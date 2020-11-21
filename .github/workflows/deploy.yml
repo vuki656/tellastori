@@ -25,13 +25,13 @@ jobs:
         run: |
           cd client
           yarn lint
+
       - name: Lint API
         run: |
           cd api
           yarn lint
   Build:
     runs-on: ubuntu-latest
-    needs: [Lint]
 
     steps:
       - uses: actions/checkout@v2
@@ -49,7 +49,8 @@ jobs:
         run: |
           cd api
           yarn validate-schema
-      - name: Build Client
+
+      - name: Validate Client Build
         run: |
           cd client
           yarn build
