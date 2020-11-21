@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "setup": "./bin/setup-dockerized-services.sh",
-    "start": "nodemon src/index.ts",
+    "start": "ts-node src/index.ts",
+    "start-dev": "nodemon src/index.ts",
+    "validate-schema": "ts-node src/server/validate-schema.ts",
     "lint": "eslint src/**/*.{ts,tsx}"
   },
   "dependencies": {

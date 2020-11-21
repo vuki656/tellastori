@@ -1,17 +1,14 @@
 import { GraphQLSchema } from 'graphql'
 import { buildSchemaSync } from 'type-graphql'
+import { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
 import { Container } from 'typedi'
 
-import { PostResolver } from '../resolvers/Post'
-import { VoteResolver } from '../resolvers/Vote'
+import * as resolvers from '../resolvers'
 
 export const getSchema = (): GraphQLSchema => {
     return buildSchemaSync({
         container: Container,
-        resolvers: [
-            PostResolver,
-            VoteResolver,
-        ],
+        resolvers: [...Object.values(resolvers)] as unknown as NonEmptyArray<string>,
         validate: false,
     })
 }
