@@ -4,12 +4,12 @@ import {
     GlobalStyles,
     ThemeProvider,
 } from '@dvukovic/dujo-ui'
-import cuid from 'cuid'
 import { AppProps } from 'next/app'
 import React from 'react'
 
 import { useApolloClient } from '../lib/useApolloClient'
 import { useGoogleAnalytics } from '../lib/useGoogleAnalitics'
+import { useUserTagging } from '../lib/useUserTagging'
 
 const App = (props: AppProps): JSX.Element => {
     const {
@@ -17,30 +17,25 @@ const App = (props: AppProps): JSX.Element => {
         pageProps,
     } = props
 
-    const client = useApolloClient(pageProps.initialApolloState)
     const theme = createTheme()
+
+    const client = useApolloClient(pageProps.initialApolloState)
 
     const {
         onGAVisit,
         onGALeave,
     } = useGoogleAnalytics()
 
-    const assignId = () => {
-        const userId = localStorage.getItem('userId')
-
-        if (!userId) {
-            localStorage.setItem('userId', cuid())
-        }
-    }
+    const { assignIdToUser } = useUserTagging()
 
     React.useEffect(() => {
-        assignId()
+        assignIdToUser()
         onGAVisit()
 
         return () => {
             onGALeave()
         }
-    }, [onGALeave, onGAVisit])
+    }, [assignIdToUser, onGALeave, onGAVisit])
 
     return (
         <ApolloProvider client={client}>

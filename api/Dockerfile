@@ -1,12 +1,11 @@
 FROM node:12.18.4-alpine
 
-
 WORKDIR /app
 
 COPY . .
 
 RUN yarn install
 
-EXPOSE 3000
+EXPOSE 8080
 
-CMD ["yarn", "start"]
+CMD ["yarn", "start-prod"]

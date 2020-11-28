@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 
 import * as gtag from './googleTag'
 
-type GoogleAnalyticsHandler = {
+type GoogleAnalyticsHandlerType = {
     onGAVisit: () => void
     onGALeave: () => void
 }
 
-export const useGoogleAnalytics = (): GoogleAnalyticsHandler => {
+export const useGoogleAnalytics = (): GoogleAnalyticsHandlerType => {
     const router = useRouter()
 
     const handleRouteChange = (url: string) => {

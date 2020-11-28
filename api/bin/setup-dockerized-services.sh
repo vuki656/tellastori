@@ -4,4 +4,4 @@
 BASEDIR=$(dirname "$0")
 
 # Start postgres docker image
-${BASEDIR}/start-docker-postgres.sh confessions
+${BASEDIR}/start-docker-postgres.sh tellastori
