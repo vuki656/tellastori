@@ -9,8 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - name: Checkout Action
+        uses: actions/checkout@v2
+
+      - name: Cache Action
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
@@ -28,12 +31,16 @@ jobs:
         run: |
           cd api
           yarn lint
+
   Build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - name: Checkout Action
+        uses: actions/checkout@v2
+
+      - name: Cache Action
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
@@ -52,12 +59,14 @@ jobs:
         run: |
           cd client
           yarn build
+
   Deploy:
     runs-on: ubuntu-latest
     needs: [Lint, Build]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Action
+        uses: actions/checkout@v2
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -85,6 +94,7 @@ jobs:
           cd api
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
       - name: Get Client Version
         id: client-version
         uses: martinbeentjes/npm-get-version-action@master
