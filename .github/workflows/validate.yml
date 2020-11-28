@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - name: Checkout Action
+        uses: actions/checkout@v2
+
+      - name: Cache Action
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
@@ -30,12 +33,16 @@ jobs:
         run: |
           cd api
           yarn lint
+
   Build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - name: Checkout Action
+        uses: actions/checkout@v2
+
+      - name: Cache Action
+        uses: actions/cache@v2
         with:
           path: |
             **/node_modules
