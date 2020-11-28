@@ -8,7 +8,8 @@ import cuid from 'cuid'
 import { AppProps } from 'next/app'
 import React from 'react'
 
-import { useApollo } from '../lib/apolloClient'
+import { useApolloClient } from '../lib/useApolloClient'
+import { useGoogleAnalytics } from '../lib/useGoogleAnalitics'
 
 const App = (props: AppProps): JSX.Element => {
     const {
@@ -16,8 +17,13 @@ const App = (props: AppProps): JSX.Element => {
         pageProps,
     } = props
 
-    const client = useApollo(pageProps.initialApolloState)
+    const client = useApolloClient(pageProps.initialApolloState)
     const theme = createTheme()
+
+    const {
+        onGAVisit,
+        onGALeave,
+    } = useGoogleAnalytics()
 
     const assignId = () => {
         const userId = localStorage.getItem('userId')
@@ -29,7 +35,12 @@ const App = (props: AppProps): JSX.Element => {
 
     React.useEffect(() => {
         assignId()
-    }, [])
+        onGAVisit()
+
+        return () => {
+            onGALeave()
+        }
+    }, [onGALeave, onGAVisit])
 
     return (
         <ApolloProvider client={client}>

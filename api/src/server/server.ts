@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server'
 import { getSchema } from './schema'
 
 export const startServer = async(): Promise<void> => {
-    const port = 4000
+    const port = 8080
     const server = new ApolloServer({
         context: ({ req }) => {
             return { userId: req.headers.userid }

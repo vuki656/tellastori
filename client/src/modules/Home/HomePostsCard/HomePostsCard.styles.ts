@@ -9,9 +9,9 @@ type HomePostsListButtonProps = {
 }
 
 export const HomePostsCardRoot = styled(Panel)({
-    '@media (max-width: 768px)': { width: '80vw' },
+    '@media (max-width: 800px)': { width: '80vw' },
     padding: 0,
-    width: '50vw',
+    width: '40vw',
 })
 
 export const HomePostCardHeader = styled('div')((props) => ({
