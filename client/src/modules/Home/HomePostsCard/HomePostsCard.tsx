@@ -58,7 +58,7 @@ export const HomePostsCard: React.FunctionComponent<HomePostsCardProps> = (props
     }
 
     return (
-        <HomePostsCardRoot key={post.id}>
+        <HomePostsCardRoot>
             <HomePostsCardContent>
                 <HomePostCardHeader>
                     <HomePostCardNumber>
