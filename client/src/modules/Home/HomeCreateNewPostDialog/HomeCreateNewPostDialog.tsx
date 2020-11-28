@@ -47,7 +47,10 @@ export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
     })
 
     const handleSubmit = (formValues: HomeCreateNewPostDialogType) => {
-        createPostMutation({ variables: { input: { note: formValues.note } } })
+        createPostMutation({
+            refetchQueries: ['Posts'],
+            variables: { input: { note: formValues.note } },
+        })
         .then(() => {
             setIsOpen(false)
             form.resetForm()
@@ -77,7 +80,7 @@ export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
             </Button>
             <Dialog
                 isOpen={isOpen}
-                title="Post a confession"
+                title="Whats your story"
             >
                 {disablePosting ? (
                     <DisablePostingMessage>
@@ -89,7 +92,6 @@ export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
                         error={Boolean(form.errors.note)}
                         fullWidth
                         helperText={form.errors.note}
-                        label="Your confession"
                         name="note"
                         onChange={form.handleChange}
                         rows={10}
