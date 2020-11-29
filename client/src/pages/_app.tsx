@@ -4,7 +4,7 @@ import {
     GlobalStyles,
     ThemeProvider,
 } from '@dvukovic/dujo-ui'
-import { AppProps } from 'next/app'
+import NextApp, { AppProps } from 'next/app'
 import React from 'react'
 
 import { useApolloClient } from '../lib/useApolloClient'
@@ -47,4 +47,19 @@ const App = (props: AppProps): JSX.Element => {
     )
 }
 
-export default App
+class Root extends NextApp {
+
+    // eslint-disable-next-line require-await
+    static async getInitialProps() {
+        return { pageProps: {} }
+    }
+
+    public render(): JSX.Element {
+        return (
+            <App {...this.props} />
+        )
+    }
+
+}
+
+export default Root
