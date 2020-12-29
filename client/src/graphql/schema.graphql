@@ -5,12 +5,21 @@ schema {
     mutation: Mutation
 }
 
+type AdminType {
+    isValid: Boolean!
+}
+
 type CreatePostPayload {
     post: PostType!
 }
 
+type LogInAdminPayload {
+    token: String!
+}
+
 type Mutation {
     createPost(input: CreatePostInput!): CreatePostPayload!
+    logInAdmin(input: LogInAdminInput!): LogInAdminPayload!
     vote(input: VoteInput!): VotePayload!
 }
 
@@ -37,6 +46,7 @@ type PostType {
 
 type Query {
     posts(input: GetAllPostsArgs!): PaginatedPostsType!
+    verifyAdmin(input: VerifyAdminInput!): AdminType!
 }
 
 type VotePayload {
@@ -60,6 +70,15 @@ input CreatePostInput {
 
 input GetAllPostsArgs {
     pageNumber: Float!
+}
+
+input LogInAdminInput {
+    password: String!
+    username: String!
+}
+
+input VerifyAdminInput {
+    token: String!
 }
 
 input VoteInput {

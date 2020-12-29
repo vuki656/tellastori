@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import NextHead from 'next/head'
 import * as React from 'react'
 
-import { AdminLogin } from '../modules/AdminLogin'
+import { AdminLogin } from '../../modules/Admin/AdminLogin'
 
 const AdminLoginPage: NextPage = () => {
     return (

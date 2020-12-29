@@ -6,7 +6,11 @@ export const startServer = async(): Promise<void> => {
     const port = 8080
     const server = new ApolloServer({
         context: ({ req }) => {
-            return { userId: req.headers.userid }
+            return {
+                secret: process.env.JWT_SECRET,
+                token: req.headers.token,
+                userId: req.headers.userid,
+            }
         },
         schema: await getSchema(),
     })

@@ -5,9 +5,9 @@ import {
 } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { ContextType } from '../../../global/types'
 import { PostEntity } from '../../entities'
 import { VoteTypeEnum } from '../../enums'
+import { ContextType } from '../../types'
 import { VoteCountType } from '../Vote/types'
 
 import { GetAllPostsArgs } from './args'

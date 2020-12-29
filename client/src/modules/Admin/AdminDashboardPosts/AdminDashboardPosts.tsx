@@ -1,7 +1,5 @@
 import { useQuery } from '@apollo/client'
 import { Button } from '@dvukovic/dujo-ui'
-import dayjs from 'dayjs'
-import advancedFormat from 'dayjs/plugin/advancedFormat'
 import * as React from 'react'
 
 import { PostCard } from '../../../components/PostCard'
@@ -10,16 +8,14 @@ import {
     PostsQuery,
     PostsQueryVariables,
 } from '../../../graphql/types'
+import { HomePostsListButtons } from '../../Home/HomePosts/HomePosts.styles'
 
 import {
-    HomePostsList,
-    HomePostsListButtons,
-    HomePostsRoot,
-} from './HomePosts.styles'
+    AdminDashboardPostsList,
+    AdminDashboardPostsRoot,
+} from './AdminDashboardPosts.styles'
 
-dayjs.extend(advancedFormat)
-
-export const HomePosts: React.FunctionComponent = () => {
+export const AdminDashboardPosts: React.FunctionComponent = () => {
     const [pageNumber, setPageNumber] = React.useState(0)
 
     const {
@@ -43,8 +39,8 @@ export const HomePosts: React.FunctionComponent = () => {
     }
 
     return (
-        <HomePostsRoot>
-            <HomePostsList>
+        <AdminDashboardPostsRoot>
+            <AdminDashboardPostsList>
                 {postsData?.posts.list.map((post) => {
                     return (
                         <PostCard
@@ -71,7 +67,7 @@ export const HomePosts: React.FunctionComponent = () => {
                         Next
                     </Button>
                 </HomePostsListButtons>
-            </HomePostsList>
-        </HomePostsRoot>
+            </AdminDashboardPostsList>
+        </AdminDashboardPostsRoot>
     )
 }

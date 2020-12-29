@@ -1,7 +1,18 @@
+import {
+    ApolloError,
+    useMutation,
+} from '@apollo/client'
 import { TextField } from '@dvukovic/dujo-ui'
 import { useFormik } from 'formik'
+import { useRouter } from 'next/router'
 import * as React from 'react'
 import * as Yup from 'yup'
+
+import { LOGIN_ADMIN } from '../../../graphql/mutations'
+import {
+    LoginAdminMutation,
+    LoginAdminMutationVariables,
+} from '../../../graphql/types'
 
 import {
     AdminLoginButton,
@@ -20,18 +31,50 @@ const ValidationSchema = Yup.object().shape({
 })
 
 export const AdminLogin: React.FunctionComponent = () => {
+    const router = useRouter()
+
+    const [
+        adminLoginMutation,
+        { loading: loginLoading },
+    ] = useMutation<LoginAdminMutation, LoginAdminMutationVariables>(LOGIN_ADMIN)
+
     const {
         handleSubmit,
         errors,
         values,
         handleChange,
+        setErrors,
     } = useFormik<AdminLoginFormType>({
         initialValues: {
             password: '',
             username: '',
         },
         onSubmit: (formValues) => {
-            console.log(formValues)
+            adminLoginMutation({
+                variables: {
+                    input: {
+                        password: formValues.password,
+                        username: formValues.username,
+                    },
+                },
+            })
+            .then((response) => {
+                const token = response?.data?.logInAdmin.token ?? ''
+
+                window.localStorage.setItem(
+                    'token',
+                    token
+                )
+
+                router.push('/admin/dashboard/posts')
+            })
+            .catch((error: ApolloError) => {
+                const errors = error.graphQLErrors[0].extensions?.exception
+
+                if (errors) {
+                    setErrors({ ...errors })
+                }
+            })
         },
         validationSchema: ValidationSchema,
     })
@@ -59,10 +102,12 @@ export const AdminLogin: React.FunctionComponent = () => {
                         label="Password"
                         name="password"
                         onChange={handleChange}
+                        type="password"
                         value={values.password}
                     />
                     <AdminLoginButton
                         fullWidth
+                        loading={loginLoading}
                         type="submit"
                     >
                         Login

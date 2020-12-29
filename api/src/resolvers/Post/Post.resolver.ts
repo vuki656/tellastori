@@ -6,7 +6,7 @@ import {
     Resolver,
 } from 'type-graphql'
 
-import { ContextType } from '../../../global/types'
+import { ContextType } from '../../types'
 
 import { GetAllPostsArgs } from './args'
 import { CreatePostInput } from './mutations/inputs'

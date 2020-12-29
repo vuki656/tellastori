@@ -14,20 +14,36 @@ export type Scalars = {
   Date: any;
 };
 
+export type AdminType = {
+  __typename?: 'AdminType';
+  isValid: Scalars['Boolean'];
+};
+
 export type CreatePostPayload = {
   __typename?: 'CreatePostPayload';
   post: PostType;
 };
 
+export type LogInAdminPayload = {
+  __typename?: 'LogInAdminPayload';
+  token: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createPost: CreatePostPayload;
+  logInAdmin: LogInAdminPayload;
   vote: VotePayload;
 };
 
 
 export type MutationCreatePostArgs = {
   input: CreatePostInput;
+};
+
+
+export type MutationLogInAdminArgs = {
+  input: LogInAdminInput;
 };
 
 
@@ -62,11 +78,17 @@ export type PostType = {
 export type Query = {
   __typename?: 'Query';
   posts: PaginatedPostsType;
+  verifyAdmin: AdminType;
 };
 
 
 export type QueryPostsArgs = {
   input: GetAllPostsArgs;
+};
+
+
+export type QueryVerifyAdminArgs = {
+  input: VerifyAdminInput;
 };
 
 export type VotePayload = {
@@ -94,6 +116,15 @@ export type GetAllPostsArgs = {
   pageNumber: Scalars['Float'];
 };
 
+export type LogInAdminInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type VerifyAdminInput = {
+  token: Scalars['String'];
+};
+
 export type VoteInput = {
   postId: Scalars['String'];
   voteType: VoteTypeEnum;
@@ -112,6 +143,19 @@ export type PostPayloadFragment = (
 export type VotePayloadFragment = (
   { __typename?: 'VoteType' }
   & Pick<VoteType, 'id' | 'type' | 'userId'>
+);
+
+export type LoginAdminMutationVariables = Exact<{
+  input: LogInAdminInput;
+}>;
+
+
+export type LoginAdminMutation = (
+  { __typename?: 'Mutation' }
+  & { logInAdmin: (
+    { __typename?: 'LogInAdminPayload' }
+    & Pick<LogInAdminPayload, 'token'>
+  ) }
 );
 
 export type CreatePostMutationVariables = Exact<{
@@ -143,6 +187,19 @@ export type VoteMutation = (
       { __typename?: 'VoteType' }
       & VotePayloadFragment
     ) }
+  ) }
+);
+
+export type VerifyAdminQueryVariables = Exact<{
+  input: VerifyAdminInput;
+}>;
+
+
+export type VerifyAdminQuery = (
+  { __typename?: 'Query' }
+  & { verifyAdmin: (
+    { __typename?: 'AdminType' }
+    & Pick<AdminType, 'isValid'>
   ) }
 );
 
