@@ -1,16 +1,28 @@
-import { useQuery } from '@apollo/client'
-import { Button } from '@dvukovic/dujo-ui'
+import {
+    useMutation,
+    useQuery,
+} from '@apollo/client'
+import {
+    Button,
+    IconButton,
+    TrashIcon,
+} from '@dvukovic/dujo-ui'
 import * as React from 'react'
 
 import { PostCard } from '../../../components/PostCard'
+import { DELETE_POST } from '../../../graphql/mutations'
 import { POSTS } from '../../../graphql/queries'
 import {
+    DeletePostMutation,
+    DeletePostMutationVariables,
     PostsQuery,
     PostsQueryVariables,
 } from '../../../graphql/types'
 import { HomePostsListButtons } from '../../Home/HomePosts/HomePosts.styles'
 
 import {
+    AdminDashboardPostCardActions,
+    AdminDashboardPostCardRoot,
     AdminDashboardPostsList,
     AdminDashboardPostsRoot,
 } from './AdminDashboardPosts.styles'
@@ -26,6 +38,10 @@ export const AdminDashboardPosts: React.FunctionComponent = () => {
         { variables: { input: { pageNumber: pageNumber } } }
     )
 
+    const [
+        deletePostMutation,
+    ] = useMutation<DeletePostMutation, DeletePostMutationVariables>(DELETE_POST)
+
     const handleNextClick = () => {
         setPageNumber((pageNumber) => {
             return pageNumber + 1
@@ -38,16 +54,31 @@ export const AdminDashboardPosts: React.FunctionComponent = () => {
         })
     }
 
+    const handlePostDelete = (id: string) => () => {
+        deletePostMutation({ variables: { input: { id: id } } })
+        .then(() => {
+            refetch()
+        })
+    }
+
     return (
         <AdminDashboardPostsRoot>
             <AdminDashboardPostsList>
                 {postsData?.posts.list.map((post) => {
                     return (
-                        <PostCard
-                            key={post.id}
-                            onChange={refetch}
-                            post={post}
-                        />
+                        <AdminDashboardPostCardRoot key={post.id}>
+                            <PostCard
+                                onChange={refetch}
+                                post={post}
+                            />
+                            <AdminDashboardPostCardActions>
+                                <IconButton
+                                    icon={<TrashIcon />}
+                                    onClick={handlePostDelete(post.id)}
+                                    variant="outlined"
+                                />
+                            </AdminDashboardPostCardActions>
+                        </AdminDashboardPostCardRoot>
                     )
                 })}
                 <HomePostsListButtons>

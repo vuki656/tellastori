@@ -3,6 +3,8 @@
 // This file was automatically generated and should not be edited.
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -24,6 +26,11 @@ export type CreatePostPayload = {
   post: PostType;
 };
 
+export type DeletePostPayload = {
+  __typename?: 'DeletePostPayload';
+  id: Scalars['String'];
+};
+
 export type LogInAdminPayload = {
   __typename?: 'LogInAdminPayload';
   token: Scalars['String'];
@@ -32,6 +39,7 @@ export type LogInAdminPayload = {
 export type Mutation = {
   __typename?: 'Mutation';
   createPost: CreatePostPayload;
+  deletePost: DeletePostPayload;
   logInAdmin: LogInAdminPayload;
   vote: VotePayload;
 };
@@ -39,6 +47,11 @@ export type Mutation = {
 
 export type MutationCreatePostArgs = {
   input: CreatePostInput;
+};
+
+
+export type MutationDeletePostArgs = {
+  input: DeletePostInput;
 };
 
 
@@ -112,6 +125,10 @@ export type CreatePostInput = {
   note: Scalars['String'];
 };
 
+export type DeletePostInput = {
+  id: Scalars['String'];
+};
+
 export type GetAllPostsArgs = {
   pageNumber: Scalars['Float'];
 };
@@ -171,6 +188,19 @@ export type CreatePostMutation = (
       { __typename?: 'PostType' }
       & PostPayloadFragment
     ) }
+  ) }
+);
+
+export type DeletePostMutationVariables = Exact<{
+  input: DeletePostInput;
+}>;
+
+
+export type DeletePostMutation = (
+  { __typename?: 'Mutation' }
+  & { deletePost: (
+    { __typename?: 'DeletePostPayload' }
+    & Pick<DeletePostPayload, 'id'>
   ) }
 );
 

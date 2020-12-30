@@ -13,12 +13,17 @@ type CreatePostPayload {
     post: PostType!
 }
 
+type DeletePostPayload {
+    id: String!
+}
+
 type LogInAdminPayload {
     token: String!
 }
 
 type Mutation {
     createPost(input: CreatePostInput!): CreatePostPayload!
+    deletePost(input: DeletePostInput!): DeletePostPayload!
     logInAdmin(input: LogInAdminInput!): LogInAdminPayload!
     vote(input: VoteInput!): VotePayload!
 }
@@ -66,6 +71,10 @@ enum VoteTypeEnum {
 
 input CreatePostInput {
     note: String!
+}
+
+input DeletePostInput {
+    id: String!
 }
 
 input GetAllPostsArgs {

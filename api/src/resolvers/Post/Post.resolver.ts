@@ -9,8 +9,14 @@ import {
 import { ContextType } from '../../types'
 
 import { GetAllPostsArgs } from './args'
-import { CreatePostInput } from './mutations/inputs'
-import { CreatePostPayload } from './mutations/payloads'
+import {
+    CreatePostInput,
+    DeletePostInput,
+} from './mutations/inputs'
+import {
+    CreatePostPayload,
+    DeletePostPayload,
+} from './mutations/payloads'
 import { PostService } from './Post.service'
 import {
     PaginatedPostsType,
@@ -38,6 +44,13 @@ export class PostResolver {
         @Arg('input') input: CreatePostInput
     ): Promise<CreatePostPayload> {
         return this.service.create(input)
+    }
+
+    @Mutation(() => DeletePostPayload)
+    public async deletePost(
+        @Arg('input') input: DeletePostInput
+    ) {
+        return this.service.delete(input)
     }
 
 }

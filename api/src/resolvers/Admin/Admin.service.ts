@@ -2,10 +2,7 @@ import {
     AuthenticationError,
     UserInputError,
 } from 'apollo-server'
-import {
-    compareSync,
-    hash,
-} from 'bcryptjs'
+import { compareSync } from 'bcryptjs'
 import {
     decode,
     sign,

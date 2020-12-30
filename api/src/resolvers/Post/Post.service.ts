@@ -11,8 +11,14 @@ import { ContextType } from '../../types'
 import { VoteCountType } from '../Vote/types'
 
 import { GetAllPostsArgs } from './args'
-import { CreatePostInput } from './mutations/inputs'
-import { CreatePostPayload } from './mutations/payloads'
+import {
+    CreatePostInput,
+    DeletePostInput,
+} from './mutations/inputs'
+import {
+    CreatePostPayload,
+    DeletePostPayload,
+} from './mutations/payloads'
 import {
     PaginatedPostsType,
     PostType,
@@ -55,7 +61,7 @@ export class PostService {
             hasNext: postsAmount > offset + DEFAULT_LIST_SIZE,
             hasPrevious: input.pageNumber !== 0,
             list: posts.map((post) => {
-                const metadata = this.getPostMetadata(post, context)
+                const metadata = this.getMetadata(post, context)
 
                 return new PostType(
                     post,
@@ -65,7 +71,7 @@ export class PostService {
         })
     }
 
-    public getPostMetadata = (
+    public getMetadata = (
         post: PostEntity,
         context: ContextType
     ) => {
@@ -96,6 +102,12 @@ export class PostService {
             positiveCount: positiveCount,
             voteType: vote?.type,
         })
+    }
+
+    public async delete(input: DeletePostInput) {
+        await this.repository.delete(input.id)
+
+        return new DeletePostPayload(input.id)
     }
 
 }
