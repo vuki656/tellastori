@@ -4,4 +4,9 @@ import { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
 
 import * as resolvers from '../resolvers'
 
-buildSchemaSync({ resolvers: [...Object.values(resolvers)] as unknown as NonEmptyArray<string> })
+import { authChecker } from './authorization'
+
+buildSchemaSync({
+    authChecker: authChecker,
+    resolvers: [...Object.values(resolvers)] as unknown as NonEmptyArray<string>,
+})
