@@ -4,7 +4,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "setup": "./bin/setup-dockerized-services.sh",
-    "start-prod": "ts-node src/index.ts",
+    "start-prod": "NODE_ENV=production ts-node src/index.ts",
     "start-dev": "nodemon src/index.ts",
     "validate-schema": "ts-node src/server/validate-schema.ts",
     "lint": "eslint src/**/*.{ts,tsx}"
