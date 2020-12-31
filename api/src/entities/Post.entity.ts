@@ -35,7 +35,10 @@ export class PostEntity {
     })
     note: string
 
-    @OneToMany(() => VoteEntity, (vote) => vote.post, { eager: true })
+    @OneToMany(() => VoteEntity, (vote) => vote.post, {
+        eager: true,
+        onDelete: 'CASCADE',
+    })
     votes: VoteEntity[]
 
 }
