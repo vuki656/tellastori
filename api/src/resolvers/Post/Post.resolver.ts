@@ -1,5 +1,6 @@
 import {
     Arg,
+    Authorized,
     Ctx,
     Mutation,
     Query,
@@ -46,6 +47,7 @@ export class PostResolver {
         return this.service.create(input)
     }
 
+    @Authorized()
     @Mutation(() => DeletePostPayload)
     public async deletePost(
         @Arg('input') input: DeletePostInput
