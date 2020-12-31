@@ -3,6 +3,8 @@
 // This file was automatically generated and should not be edited.
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -14,20 +16,47 @@ export type Scalars = {
   Date: any;
 };
 
+export type AdminType = {
+  __typename?: 'AdminType';
+  isValid: Scalars['Boolean'];
+};
+
 export type CreatePostPayload = {
   __typename?: 'CreatePostPayload';
   post: PostType;
 };
 
+export type DeletePostPayload = {
+  __typename?: 'DeletePostPayload';
+  id: Scalars['String'];
+};
+
+export type LogInAdminPayload = {
+  __typename?: 'LogInAdminPayload';
+  token: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createPost: CreatePostPayload;
+  deletePost: DeletePostPayload;
+  logInAdmin: LogInAdminPayload;
   vote: VotePayload;
 };
 
 
 export type MutationCreatePostArgs = {
   input: CreatePostInput;
+};
+
+
+export type MutationDeletePostArgs = {
+  input: DeletePostInput;
+};
+
+
+export type MutationLogInAdminArgs = {
+  input: LogInAdminInput;
 };
 
 
@@ -62,11 +91,17 @@ export type PostType = {
 export type Query = {
   __typename?: 'Query';
   posts: PaginatedPostsType;
+  verifyAdmin: AdminType;
 };
 
 
 export type QueryPostsArgs = {
   input: GetAllPostsArgs;
+};
+
+
+export type QueryVerifyAdminArgs = {
+  input: VerifyAdminInput;
 };
 
 export type VotePayload = {
@@ -90,8 +125,21 @@ export type CreatePostInput = {
   note: Scalars['String'];
 };
 
+export type DeletePostInput = {
+  id: Scalars['String'];
+};
+
 export type GetAllPostsArgs = {
   pageNumber: Scalars['Float'];
+};
+
+export type LogInAdminInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type VerifyAdminInput = {
+  token: Scalars['String'];
 };
 
 export type VoteInput = {
@@ -114,6 +162,19 @@ export type VotePayloadFragment = (
   & Pick<VoteType, 'id' | 'type' | 'userId'>
 );
 
+export type LoginAdminMutationVariables = Exact<{
+  input: LogInAdminInput;
+}>;
+
+
+export type LoginAdminMutation = (
+  { __typename?: 'Mutation' }
+  & { logInAdmin: (
+    { __typename?: 'LogInAdminPayload' }
+    & Pick<LogInAdminPayload, 'token'>
+  ) }
+);
+
 export type CreatePostMutationVariables = Exact<{
   input: CreatePostInput;
 }>;
@@ -130,6 +191,19 @@ export type CreatePostMutation = (
   ) }
 );
 
+export type DeletePostMutationVariables = Exact<{
+  input: DeletePostInput;
+}>;
+
+
+export type DeletePostMutation = (
+  { __typename?: 'Mutation' }
+  & { deletePost: (
+    { __typename?: 'DeletePostPayload' }
+    & Pick<DeletePostPayload, 'id'>
+  ) }
+);
+
 export type VoteMutationVariables = Exact<{
   input: VoteInput;
 }>;
@@ -143,6 +217,19 @@ export type VoteMutation = (
       { __typename?: 'VoteType' }
       & VotePayloadFragment
     ) }
+  ) }
+);
+
+export type VerifyAdminQueryVariables = Exact<{
+  input: VerifyAdminInput;
+}>;
+
+
+export type VerifyAdminQuery = (
+  { __typename?: 'Query' }
+  & { verifyAdmin: (
+    { __typename?: 'AdminType' }
+    & Pick<AdminType, 'isValid'>
   ) }
 );
 

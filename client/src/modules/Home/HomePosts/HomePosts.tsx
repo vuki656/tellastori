@@ -4,12 +4,12 @@ import dayjs from 'dayjs'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
 import * as React from 'react'
 
+import { PostCard } from '../../../components/PostCard'
 import { POSTS } from '../../../graphql/queries'
 import {
     PostsQuery,
     PostsQueryVariables,
 } from '../../../graphql/types'
-import { HomePostsCard } from '../HomePostsCard'
 
 import {
     HomePostsList,
@@ -47,7 +47,7 @@ export const HomePosts: React.FunctionComponent = () => {
             <HomePostsList>
                 {postsData?.posts.list.map((post) => {
                     return (
-                        <HomePostsCard
+                        <PostCard
                             key={post.id}
                             onChange={refetch}
                             post={post}
