@@ -12,3 +12,11 @@ export const CREATE_POST = gql`
     }
     ${POST_PAYLOAD}
 `
+
+export const DELETE_POST = gql`
+    mutation DeletePost($input: DeletePostInput!) {
+        deletePost(input: $input) {
+            id
+        }
+    }
+`

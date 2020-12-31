@@ -2,12 +2,12 @@ import { useMutation } from '@apollo/client'
 import dayjs from 'dayjs'
 import * as React from 'react'
 
-import { VOTE } from '../../../graphql/mutations'
+import { VOTE } from '../../graphql/mutations'
 import {
     VoteMutation,
     VoteMutationVariables,
     VoteTypeEnum,
-} from '../../../graphql/types'
+} from '../../graphql/types'
 
 import {
     HomePostCardButtons,
@@ -20,10 +20,10 @@ import {
     HomePostsCardRoot,
     HomePostsListLeftButton,
     HomePostsListRightButton,
-} from './HomePostsCard.styles'
-import { HomePostsCardProps } from './HomePostsCard.types'
+} from './PostCard.styles'
+import { HomePostsCardProps } from './PostCard.types'
 
-export const HomePostsCard: React.FunctionComponent<HomePostsCardProps> = (props) => {
+export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => {
     const {
         post,
         onChange,

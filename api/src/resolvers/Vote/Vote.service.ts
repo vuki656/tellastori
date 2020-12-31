@@ -5,8 +5,8 @@ import {
 } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
-import { ContextType } from '../../../global/types'
 import { VoteEntity } from '../../entities'
+import { ContextType } from '../../types'
 
 import { VoteInput } from './mutations/inputs'
 import { VotePayload } from './mutations/payloads'

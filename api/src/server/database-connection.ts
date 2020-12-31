@@ -8,7 +8,6 @@ import {
 
 import * as entities from '../entities'
 
-// Register global container for dependency injection
 useContainer(Container)
 
 export const createDatabaseConnection = (): Promise<Connection> => {

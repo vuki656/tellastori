@@ -1,4 +1,4 @@
-import { VoteTypeEnum } from '../../../graphql/types'
+import { VoteTypeEnum } from '../../graphql/types'
 
 type PostMetadataType = {
     voteType?: VoteTypeEnum | null

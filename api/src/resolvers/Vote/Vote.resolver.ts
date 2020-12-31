@@ -5,7 +5,7 @@ import {
     Resolver,
 } from 'type-graphql'
 
-import { ContextType } from '../../../global/types'
+import { ContextType } from '../../types'
 
 import { VoteInput } from './mutations/inputs'
 import { VotePayload } from './mutations/payloads'

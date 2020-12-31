@@ -5,11 +5,14 @@ import {
     ThemeProvider,
 } from '@dvukovic/dujo-ui'
 import NextApp, { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import React from 'react'
 
+import { Authentication } from '../components/Authentication'
 import { useApolloClient } from '../lib/useApolloClient'
 import { useGoogleAnalytics } from '../lib/useGoogleAnalitics'
 import { useUserTagging } from '../lib/useUserTagging'
+import { AdminDashboardMenu } from '../modules/Admin/AdminDashboardMenu'
 
 const App = (props: AppProps): JSX.Element => {
     const {
@@ -18,6 +21,7 @@ const App = (props: AppProps): JSX.Element => {
     } = props
 
     const theme = createTheme()
+    const router = useRouter()
 
     const client = useApolloClient(pageProps.initialApolloState)
 
@@ -37,11 +41,22 @@ const App = (props: AppProps): JSX.Element => {
         }
     }, [assignIdToUser, onGALeave, onGAVisit])
 
+    let RenderComponent = <Component {...pageProps} />
+
+    if (router.pathname.includes('dashboard')) {
+        RenderComponent = (
+            <Authentication>
+                <AdminDashboardMenu />
+                <Component {...pageProps} />
+            </Authentication>
+        )
+    }
+
     return (
         <ApolloProvider client={client}>
             <ThemeProvider theme={theme}>
                 <GlobalStyles />
-                <Component {...pageProps} />
+                {RenderComponent}
             </ThemeProvider>
         </ApolloProvider>
     )
