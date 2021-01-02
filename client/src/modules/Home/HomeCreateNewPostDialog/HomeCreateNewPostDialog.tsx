@@ -6,6 +6,7 @@ import {
     TextArea,
 } from '@dvukovic/dujo-ui'
 import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { useFormik } from 'formik'
 import Cookies from 'js-cookie'
@@ -21,6 +22,7 @@ import {
 import { DisablePostingMessage } from './HomeCreateNewPostDialog.styles'
 import { HomeCreateNewPostDialogType } from './HomeCreateNewPostDialog.types'
 
+dayjs.extend(customParseFormat)
 dayjs.extend(isSameOrAfter)
 
 const ValidationSchema = Yup.object().shape({
@@ -73,7 +75,7 @@ export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
         form.resetForm()
     }
 
-    const disablePosting = dayjs(lastPostDate).isSameOrAfter(dayjs().format('MM-DD-YYYY'), 'day')
+    const disablePosting = dayjs(lastPostDate, 'MM-DD-YYYY').format('MM-DD-YYYY') === dayjs().format('MM-DD-YYYY')
 
     return (
         <>
