@@ -4,8 +4,7 @@ import validator from 'validator'
 
 import { ContextType } from '../types'
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const SECRET = process.env.JWT_SECRET!
+const SECRET = process.env.JWT_SECRET ?? ''
 
 export const authChecker: AuthChecker<ContextType> = async(resolverData): Promise<boolean> => {
     const authPayload = resolverData.context.token

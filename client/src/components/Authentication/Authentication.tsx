@@ -1,4 +1,5 @@
 import { useLazyQuery } from '@apollo/client'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
@@ -24,7 +25,7 @@ export const Authentication: React.FunctionComponent = (props) => {
             fetchPolicy: 'network-only',
             onCompleted: (response) => {
                 if (!response?.verifyAdmin.isValid) {
-                    window.localStorage.removeItem('token')
+                    Cookies.remove('token')
 
                     router.push('/admin/login')
                 }
@@ -34,9 +35,11 @@ export const Authentication: React.FunctionComponent = (props) => {
     )
 
     React.useEffect(() => {
-        setToken(window.localStorage.getItem('token') ?? '')
+        const token = Cookies.get('token') ?? ''
+
+        setToken(token)
         verifyAdmin()
-    }, [])
+    }, [token])
 
     return (
         <>
