@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Action
+      - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Cache Action
+      - name: Restore Cache
         uses: actions/cache@v2
         with:
           path: |
@@ -36,10 +36,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Action
+      - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Cache Action
+      - name: Restore Cache
         uses: actions/cache@v2
         with:
           path: |
@@ -65,7 +65,7 @@ jobs:
     needs: [Lint, Build]
 
     steps:
-      - name: Checkout Action
+      - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Configure AWS credentials
@@ -85,7 +85,7 @@ jobs:
         with:
           path: ./api/
 
-      - name: API ECR build, tag, push
+      - name: API ECR Build, Tag, Push
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
@@ -101,7 +101,7 @@ jobs:
         with:
           path: ./client/
 
-      - name: Client ECR build, tag, push
+      - name: Client ECR Build, Tag, Push
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}

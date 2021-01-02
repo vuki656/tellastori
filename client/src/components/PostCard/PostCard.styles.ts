@@ -44,6 +44,7 @@ export const HomePostCardNote = styled('p')((props) => ({
     overflow: 'hidden',
     paddingBottom: props.theme.spacing.xs,
     textOverflow: 'ellipsis',
+    whiteSpace: 'pre-wrap',
 }))
 
 export const HomePostCardButtons = styled('div')({
