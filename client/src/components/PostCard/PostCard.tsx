@@ -79,7 +79,9 @@ export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => 
                     onClick={handlePositiveVote}
                     variant="blank"
                 >
-                    👍 Yes <HomePostCardCount>{post.metadata?.positiveCount}</HomePostCardCount>
+                    <span style={{ paddingRight: '10px' }}>👍</span>
+                    <span style={{ paddingRight: '10px' }}>Approve</span>
+                    <HomePostCardCount>{post.metadata?.positiveCount}</HomePostCardCount>
                 </HomePostsListLeftButton>
                 <HomePostsListRightButton
                     active={post.metadata?.voteType === VoteTypeEnum.Negative}
@@ -87,7 +89,9 @@ export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => 
                     onClick={handleNegativeVote}
                     variant="blank"
                 >
-                    😑 No<HomePostCardCount>{post.metadata?.negativeCount}</HomePostCardCount>
+                    <span style={{ paddingRight: '10px' }}>😑</span>
+                    <span style={{ paddingRight: '10px' }}>No</span>
+                    <HomePostCardCount>{post.metadata?.negativeCount}</HomePostCardCount>
                 </HomePostsListRightButton>
             </HomePostCardButtons>
         </HomePostsCardRoot>

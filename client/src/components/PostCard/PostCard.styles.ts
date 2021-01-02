@@ -1,11 +1,12 @@
 import {
     Button,
     Panel,
+    Theme,
 } from '@dvukovic/dujo-ui'
 import styled from 'styled-components'
 
 type HomePostsListButtonProps = {
-    active?: boolean
+    active: boolean
 }
 
 export const HomePostsCardRoot = styled(Panel)({
@@ -50,25 +51,26 @@ export const HomePostCardButtons = styled('div')({
     gridTemplateColumns: '1fr 1fr',
 })
 
+const getButtonProps = (theme: Theme, isActive: boolean) => {
+    return {
+        border: `1px solid ${theme.palette.grey.light300}`,
+        borderBottom: 'none',
+        borderRight: 'none',
+        borderTop: isActive ? `2px solid ${theme.palette.yellow.main}` : '',
+        padding: theme.spacing.md,
+    }
+}
+
 export const HomePostsListLeftButton = styled(Button)<HomePostsListButtonProps>((props) => ({
-    border: `1px solid ${props.theme.palette.grey.light300}`,
-    borderBottom: 'none',
+    ...getButtonProps(props.theme, props.active),
     borderLeft: 'none',
     borderRadius: '0 0 0 10px',
-    borderTop: props.active ? `2px solid ${props.theme.palette.yellow.main}` : '',
-    columnGap: props.theme.spacing.xs,
-    padding: props.theme.spacing.md,
 }))
 
 export const HomePostsListRightButton = styled(Button)<HomePostsListButtonProps>((props) => ({
-    border: `1px solid ${props.theme.palette.grey.light300}`,
-    borderBottom: 'none',
-    borderLeft: 'none',
+    ...getButtonProps(props.theme, props.active),
     borderRadius: '0 0 10px 0',
     borderRight: 'none',
-    borderTop: props.active ? `2px solid ${props.theme.palette.yellow.main}` : '',
-    columnGap: props.theme.spacing.xs,
-    padding: props.theme.spacing.md,
 }))
 
 export const HomePostCardCount = styled('p')((props) => ({
