@@ -5,6 +5,7 @@ import {
     NormalizedCacheObject,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import Cookies from 'js-cookie'
 import getConfig from 'next/config'
 import { useMemo } from 'react'
 
@@ -23,12 +24,14 @@ const createApolloClient = () => {
     const authLink = setContext((operation, prevContext) => {
         const { headers } = prevContext
 
-        const userId = !ssrInProgress && localStorage.getItem('userId')
+        const userId = Cookies.get('userId') ?? ''
+        const token = Cookies.get('token') ?? ''
 
         return {
             headers: {
                 ...headers,
-                userId: userId ?? '',
+                token: `Bearer ${token}`,
+                userId: userId,
             },
         }
     })

@@ -4,6 +4,7 @@ import {
 } from '@apollo/client'
 import { TextField } from '@dvukovic/dujo-ui'
 import { useFormik } from 'formik'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 import * as Yup from 'yup'
@@ -61,11 +62,7 @@ export const AdminLogin: React.FunctionComponent = () => {
             .then((response) => {
                 const token = response?.data?.logInAdmin.token ?? ''
 
-                window.localStorage.setItem(
-                    'token',
-                    token
-                )
-
+                Cookies.set('token', token)
                 router.push('/admin/dashboard/posts')
             })
             .catch((error: ApolloError) => {

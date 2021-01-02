@@ -8,6 +8,7 @@ import {
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { useFormik } from 'formik'
+import Cookies from 'js-cookie'
 import * as React from 'react'
 import * as Yup from 'yup'
 
@@ -36,7 +37,9 @@ export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
     const [createPostMutation] = useMutation<CreatePostMutation, CreatePostMutationVariables>(CREATE_POST)
 
     React.useEffect(() => {
-        setLastPostDate(localStorage.getItem('lastPostDate') ?? '')
+        const lastPostDate = Cookies.get('last-post-date') ?? ''
+
+        setLastPostDate(lastPostDate)
     }, [])
 
     const form = useFormik<HomeCreateNewPostDialogType>({
@@ -55,8 +58,10 @@ export const HomeCreateNewPostDialog: React.FunctionComponent = () => {
             setIsOpen(false)
             form.resetForm()
 
-            setLastPostDate(dayjs().format('MM-DD-YYYY'))
-            localStorage.setItem('lastPostDate', dayjs().format('MM-DD-YYYY'))
+            const lastPostDate = dayjs().format('MM-DD-YYYY')
+
+            setLastPostDate(lastPostDate)
+            Cookies.set('last-post-date', lastPostDate)
         })
         .catch(() => {
             form.errors.note = 'You did something we didn\'t know you can do 😲. Please refresh and try again.'

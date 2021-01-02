@@ -30,8 +30,8 @@ export class VoteEntity {
     })
     userId: string
 
-    @ManyToOne(() => PostEntity, (post) => post.votes)
-    @JoinColumn({ name: 'vote_id' })
+    @ManyToOne(() => PostEntity, (post) => post.votes, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'post_id' })
     post: PostEntity
 
 }
