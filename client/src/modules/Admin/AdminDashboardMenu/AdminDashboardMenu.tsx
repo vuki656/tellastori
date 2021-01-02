@@ -5,6 +5,7 @@ import {
     ListIcon,
     PersonIcon,
 } from '@dvukovic/dujo-ui'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import * as React from 'react'
 
@@ -17,8 +18,8 @@ export const AdminDashboardMenu: React.FunctionComponent = () => {
     } = useRouter()
 
     const handleLogout = () => {
-        window.localStorage.removeItem('token',)
-        window.localStorage.removeItem('userId',)
+        Cookies.remove('token')
+        Cookies.remove('userId')
 
         push('/admin/login')
     }

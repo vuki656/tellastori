@@ -1,4 +1,5 @@
 import cuid from 'cuid'
+import Cookies from 'js-cookie'
 
 type UseUserTaggingType = {
     assignIdToUser: () => void
@@ -6,10 +7,10 @@ type UseUserTaggingType = {
 
 export const useUserTagging = (): UseUserTaggingType => {
     const assignId = () => {
-        const userId = localStorage.getItem('userId')
+        const userId = Cookies.get('userId')
 
         if (!userId) {
-            localStorage.setItem('userId', cuid())
+            Cookies.set('userId', cuid())
         }
     }
 
