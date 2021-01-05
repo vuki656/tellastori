@@ -52,7 +52,7 @@ export class PostService {
         const offset = input.pageNumber * DEFAULT_LIST_SIZE
 
         const [posts, postsAmount] = await this.repository.findAndCount({
-            order: { id: 'ASC' },
+            order: { date: 'DESC' },
             skip: offset,
             take: DEFAULT_LIST_SIZE,
         })
