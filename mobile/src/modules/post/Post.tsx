@@ -1,9 +1,5 @@
 import { useMutation } from '@apollo/client'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-    CreatePostMutation,
-    CreatePostMutationVariables,
-} from 'client/src/graphql/types'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
@@ -19,15 +15,18 @@ import {
 import * as Yup from 'yup'
 
 import { CREATE_POST } from '../../graphql/mutations'
+import {
+    CreatePostMutation,
+    CreatePostMutationVariables,
+} from '../../graphql/types'
 
-import { PostFormTypes } from './Post.types'
+import {
+    PostFormTypes,
+    StylePropsType,
+} from './Post.types'
 
 dayjs.extend(customParseFormat)
 dayjs.extend(isSameOrAfter)
-
-type StylePropsType = {
-    disablePosting: boolean,
-}
 
 const styles = (styleProps?: StylePropsType) => StyleSheet.create({
     button: {
