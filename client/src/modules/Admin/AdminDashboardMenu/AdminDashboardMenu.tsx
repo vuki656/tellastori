@@ -3,7 +3,7 @@ import {
     DrawerIcon,
     ExitIcon,
     ListIcon,
-    PersonIcon,
+    PencilIcon,
 } from '@dvukovic/dujo-ui'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
@@ -39,12 +39,12 @@ export const AdminDashboardMenu: React.FunctionComponent = () => {
             <DrawerButton
                 component={
                     <DrawerIcon
-                        icon={<PersonIcon />}
+                        icon={<PencilIcon />}
                         selected={pathname?.includes('users')}
                         tooltipText="Users"
                     />
                 }
-                href="/admin/dashboard/users"
+                href="/admin/dashboard/newPost"
             />
             <DrawerIcon
                 icon={<ExitIcon />}
