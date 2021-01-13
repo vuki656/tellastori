@@ -1,19 +1,19 @@
-import {
-    ApolloClient,
-    ApolloProvider,
-    InMemoryCache,
-} from '@apollo/client'
+import { ApolloProvider } from '@apollo/client'
 import * as React from 'react'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 import AppRoot from './src/AppRoot'
-
-const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: 'http://tellastori-api-1614044971.us-east-1.elb.amazonaws.com/', // TODO: REMOVE
-})
+import { useApolloClient } from './src/lib/useApolloClient'
+import { useUserTagging } from './src/lib/useUserTagging'
 
 export default function App() {
+    const client = useApolloClient()
+    const tagging = useUserTagging()
+
+    React.useEffect(() => {
+        tagging.assignIdToUser()
+    }, [])
+
     return (
         <ApolloProvider client={client}>
             <SafeAreaProvider>

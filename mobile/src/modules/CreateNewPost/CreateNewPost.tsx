@@ -74,7 +74,7 @@ const ValidationSchema = Yup.object().shape({
     .required('You gotta put something in 🙃'),
 })
 
-export const Post = () => {
+export const CreateNewPost = () => {
     const [lastPostDate, setLastPostDate] = React.useState<string>('')
 
     const [createPostMutation] = useMutation<CreatePostMutation, CreatePostMutationVariables>(CREATE_POST)

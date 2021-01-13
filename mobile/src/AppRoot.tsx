@@ -1,8 +1,4 @@
 import {
-    ApolloClient,
-    InMemoryCache,
-} from '@apollo/client'
-import {
     FontAwesome,
     Foundation,
 } from '@expo/vector-icons'
@@ -10,8 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 import * as React from 'react'
 
-import { PostScreen } from './screens/PostScreen'
-import { StoriesScreen } from './screens/StoriesScreen'
+import { CreateNewPostScreen } from './screens/CreateNewPostScreen'
+import { PostsScreen } from './screens/PostsScreen'
 
 const Tab = createBottomTabNavigator()
 
@@ -63,11 +59,11 @@ export default function AppRoot() {
                 }}
             >
                 <Tab.Screen
-                    component={StoriesScreen}
+                    component={PostsScreen}
                     name={Tabs.STORIES}
                 />
                 <Tab.Screen
-                    component={PostScreen}
+                    component={CreateNewPostScreen}
                     name={Tabs.POST}
                 />
             </Tab.Navigator>
