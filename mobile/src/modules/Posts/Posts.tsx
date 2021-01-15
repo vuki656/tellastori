@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { LoadingIndicator } from '../../Components/LoadingInicator'
 import { POSTS } from '../../graphql/queries'
 import {
     PostsQuery,
@@ -29,6 +30,7 @@ export const Posts = () => {
     const {
         data,
         refetch,
+        loading,
     } = useQuery<PostsQuery, PostsQueryVariables>(
         POSTS,
         { variables: { input: { pageNumber: pageNumber } } }
@@ -62,37 +64,39 @@ export const Posts = () => {
                 <View style={styles().titleWrapper}>
                     <Text style={styles().title}>📖 Tellastori</Text>
                 </View>
-                <ScrollView ref={scrollViewRef}>
-                    <View style={styles().postsWrapper}>
-                        {data?.posts.list.map((post) => {
-                            return (
-                                <PostsCard
-                                    key={post.id}
-                                    onChange={refetch}
-                                    post={post}
-                                />
-                            )
-                        })}
-                        <View style={styles().paginationButtonsWrapper}>
-                            <TouchableOpacity
-                                disabled={!data?.posts.hasPrevious}
-                                onPress={handlePreviousClick}
-                            >
-                                <Text style={styles({ disabled: !data?.posts.hasPrevious }).paginationButton}>
-                                Previous
-                                </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                disabled={!data?.posts.hasNext}
-                                onPress={handleNextClick}
-                            >
-                                <Text style={styles({ disabled: !data?.posts.hasNext }).paginationButton}>
-                                Next
-                                </Text>
-                            </TouchableOpacity>
+                {loading ? <LoadingIndicator /> : (
+                    <ScrollView ref={scrollViewRef}>
+                        <View style={styles().postsWrapper}>
+                            {data?.posts.list.map((post) => {
+                                return (
+                                    <PostsCard
+                                        key={post.id}
+                                        onChange={refetch}
+                                        post={post}
+                                    />
+                                )
+                            })}
+                            <View style={styles().paginationButtonsWrapper}>
+                                <TouchableOpacity
+                                    disabled={!data?.posts.hasPrevious}
+                                    onPress={handlePreviousClick}
+                                >
+                                    <Text style={styles({ disabled: !data?.posts.hasPrevious }).paginationButton}>
+                                        Previous
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    disabled={!data?.posts.hasNext}
+                                    onPress={handleNextClick}
+                                >
+                                    <Text style={styles({ disabled: !data?.posts.hasNext }).paginationButton}>
+                                        Next
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
-                    </View>
-                </ScrollView>
+                    </ScrollView>
+                )}
             </View>
         </SafeAreaView>
     )

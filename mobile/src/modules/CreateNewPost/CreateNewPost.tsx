@@ -28,45 +28,6 @@ import {
 dayjs.extend(customParseFormat)
 dayjs.extend(isSameOrAfter)
 
-const styles = (styleProps?: StylePropsType) => StyleSheet.create({
-    button: {
-        backgroundColor: styleProps?.disablePosting ? '#0083ff' : '#cccccc',
-        borderRadius: 7,
-        color: '#ffffff',
-        fontSize: 15,
-        padding: 5,
-        paddingHorizontal: 15,
-    },
-    message: {
-        marginTop: 20,
-        textAlign: 'center',
-    },
-    messageSection: { paddingHorizontal: 40 },
-    root: {
-        alignItems: 'center',
-        flex: 1,
-        justifyContent: 'center',
-        padding: 10,
-    },
-    textField: {
-        backgroundColor: '#ffffff',
-        borderColor: '#cccccc',
-        borderRadius: 10,
-        borderWidth: 1,
-        fontSize: 18,
-        height: '50%',
-        marginBottom: 20,
-        padding: 20,
-        textAlignVertical: 'top',
-        width: '95%',
-    },
-    title: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-})
-
 const ValidationSchema = Yup.object().shape({
     note: Yup.string()
     .min(10, 'It has to be more than 10 characters 😞')
@@ -138,3 +99,42 @@ export const CreateNewPost = () => {
         </View>
     )
 }
+
+const styles = (styleProps?: StylePropsType) => StyleSheet.create({
+    button: {
+        backgroundColor: styleProps?.disablePosting ? '#0083ff' : '#cccccc',
+        borderRadius: 7,
+        color: '#ffffff',
+        fontSize: 15,
+        padding: 5,
+        paddingHorizontal: 15,
+    },
+    message: {
+        marginTop: 20,
+        textAlign: 'center',
+    },
+    messageSection: { paddingHorizontal: 40 },
+    root: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'center',
+        padding: 10,
+    },
+    textField: {
+        backgroundColor: '#ffffff',
+        borderColor: '#cccccc',
+        borderRadius: 10,
+        borderWidth: 1,
+        fontSize: 18,
+        height: '50%',
+        marginBottom: 20,
+        padding: 20,
+        textAlignVertical: 'top',
+        width: '95%',
+    },
+    title: {
+        fontSize: 35,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
+})
