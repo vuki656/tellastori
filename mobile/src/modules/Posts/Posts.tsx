@@ -24,6 +24,7 @@ dayjs.extend(advancedFormat)
 
 export const Posts = () => {
     const [pageNumber, setPageNumber] = React.useState(0)
+    const scrollViewRef = React.useRef<ScrollView>(null)
 
     const {
         data,
@@ -33,51 +34,63 @@ export const Posts = () => {
         { variables: { input: { pageNumber: pageNumber } } }
     )
 
+    const scrollToTop = () => {
+        scrollViewRef.current?.scrollTo({
+            animated: false,
+            x: 0,
+            y: 0,
+        })
+    }
+
     const handleNextClick = () => {
         setPageNumber((pageNumber) => {
             return pageNumber + 1
         })
+        scrollToTop()
     }
 
     const handlePreviousClick = () => {
         setPageNumber((pageNumber) => {
             return pageNumber - 1
         })
+        scrollToTop()
     }
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles().safeArea}>
             <View style={styles().root}>
                 <View style={styles().titleWrapper}>
                     <Text style={styles().title}>📖 Tellastori</Text>
                 </View>
-                <ScrollView style={styles().postsWrapper}>
-                    {data?.posts.list.map((post) => {
-                        return (
-                            <PostsCard
-                                key={post.id}
-                                onChange={refetch}
-                                post={post}
-                            />
-                        )
-                    })}
-                    <View style={styles().paginationButton}>
-                        <TouchableOpacity
-                            disabled={!data?.posts.hasPrevious}
-                            onPress={handlePreviousClick}
-                        >
-                            <Text style={styles({ disabled: !data?.posts.hasPrevious }).paginationButton}>
+                <ScrollView ref={scrollViewRef}>
+                    <View style={styles().postsWrapper}>
+                        {data?.posts.list.map((post) => {
+                            return (
+                                <PostsCard
+                                    key={post.id}
+                                    onChange={refetch}
+                                    post={post}
+                                />
+                            )
+                        })}
+                        <View style={styles().paginationButtonsWrapper}>
+                            <TouchableOpacity
+                                disabled={!data?.posts.hasPrevious}
+                                onPress={handlePreviousClick}
+                            >
+                                <Text style={styles({ disabled: !data?.posts.hasPrevious }).paginationButton}>
                                 Previous
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            disabled={!data?.posts.hasNext}
-                            onPress={handleNextClick}
-                        >
-                            <Text style={styles({ disabled: !data?.posts.hasNext }).paginationButton}>
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                disabled={!data?.posts.hasNext}
+                                onPress={handleNextClick}
+                            >
+                                <Text style={styles({ disabled: !data?.posts.hasNext }).paginationButton}>
                                 Next
-                            </Text>
-                        </TouchableOpacity>
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </ScrollView>
             </View>
@@ -95,7 +108,7 @@ const styles = (styleProps?: StylePropsType) => StyleSheet.create({
         paddingHorizontal: 20,
     },
     paginationButtonsWrapper: {
-        flex: 1,
+        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 10,
@@ -106,8 +119,8 @@ const styles = (styleProps?: StylePropsType) => StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        marginBottom: 60,
     },
+    safeArea: { marginBottom: 50 },
     title: {
         fontSize: 20,
         fontWeight: 'bold',
