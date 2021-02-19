@@ -16,7 +16,7 @@ createDatabaseConnection()
         startServer()
     })
     .catch((error) => {
-    // eslint-disable-next-line no-console
+        // eslint-disable-next-line no-console
         console.log(error)
         // eslint-disable-next-line no-console
         console.log('===== FAILED =====')

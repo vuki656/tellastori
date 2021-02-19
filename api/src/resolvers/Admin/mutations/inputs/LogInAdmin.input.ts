@@ -6,8 +6,8 @@ import {
 @InputType()
 export class LogInAdminInput {
     @Field()
-    public username: string
+    username: string
 
     @Field()
-    public password: string
+    password: string
 }

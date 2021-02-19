@@ -9,7 +9,7 @@ import {
 
 import type { ContextType } from '../../types'
 
-import type { GetAllPostsArgs as GetAllPostsArguments } from './args'
+import type { GetAllPostsArgs } from './args'
 import type {
     CreatePostInput,
     DeletePostInput,
@@ -33,7 +33,7 @@ export class PostResolver {
 
     @Query(() => PaginatedPostsType)
     public async posts(
-        @Arg('input') input: GetAllPostsArguments,
+        @Arg('input') input: GetAllPostsArgs,
         @Ctx() context: ContextType,
     ): Promise<PaginatedPostsType> {
         return this.service.getPaginated(input, context)

@@ -6,7 +6,7 @@ import {
 @ObjectType()
 export class AdminType {
     @Field()
-    public isValid: boolean
+    isValid: boolean
 
     constructor(user: AdminType) {
         this.isValid = user.isValid
