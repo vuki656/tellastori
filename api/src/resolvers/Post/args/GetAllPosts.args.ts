@@ -5,8 +5,6 @@ import {
 
 @InputType()
 export class GetAllPostsArgs {
-
     @Field()
     pageNumber: number
-
 }

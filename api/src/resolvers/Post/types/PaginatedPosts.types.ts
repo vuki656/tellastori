@@ -7,7 +7,6 @@ import { PostType } from './Post.type'
 
 @ObjectType()
 export class PaginatedPostsType {
-
     @Field()
     hasNext: boolean
 
@@ -22,5 +21,4 @@ export class PaginatedPostsType {
         this.hasPrevious = paginatedPosts.hasPrevious
         this.list = paginatedPosts.list
     }
-
 }

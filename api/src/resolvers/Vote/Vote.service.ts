@@ -1,21 +1,18 @@
 import { Service } from 'typedi'
-import {
-    EntityRepository,
-    Repository,
-} from 'typeorm'
+import type { Repository } from 'typeorm'
+import { EntityRepository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { VoteEntity } from '../../entities'
-import { ContextType } from '../../types'
+import type { ContextType } from '../../types'
 
-import { VoteInput } from './mutations/inputs'
+import type { VoteInput } from './mutations/inputs'
 import { VotePayload } from './mutations/payloads'
 import { VoteType } from './types'
 
 @EntityRepository()
 @Service({ global: true })
 export class VoteService {
-
     constructor(
         @InjectRepository(VoteEntity) private readonly repository: Repository<VoteEntity>,
     ) {
@@ -33,5 +30,4 @@ export class VoteService {
 
         return new VotePayload(new VoteType(createdVote))
     }
-
 }

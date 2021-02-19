@@ -10,7 +10,6 @@ import { VoteEntity } from './Vote.entity'
 
 @Entity('post')
 export class PostEntity {
-
     @PrimaryGeneratedColumn('uuid')
     id: string
 
@@ -37,5 +36,4 @@ export class PostEntity {
 
     @OneToMany(() => VoteEntity, (vote) => vote.post, { eager: true })
     votes: VoteEntity[]
-
 }

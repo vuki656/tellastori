@@ -7,7 +7,6 @@ import { VoteTypeEnum } from '../../../enums'
 
 @ObjectType()
 export class VoteType {
-
     @Field()
     id: string
 
@@ -22,5 +21,4 @@ export class VoteType {
         this.userId = vote.userId
         this.type = vote.type
     }
-
 }

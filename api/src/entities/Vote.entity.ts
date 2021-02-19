@@ -6,13 +6,12 @@ import {
     PrimaryGeneratedColumn,
 } from 'typeorm'
 
-import { VoteTypeEnum } from '../enums'
+import type { VoteTypeEnum } from '../enums'
 
 import { PostEntity } from './Post.entity'
 
 @Entity('vote')
 export class VoteEntity {
-
     @PrimaryGeneratedColumn('uuid')
     id: string
 
@@ -33,5 +32,4 @@ export class VoteEntity {
     @ManyToOne(() => PostEntity, (post) => post.votes, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'post_id' })
     post: PostEntity
-
 }

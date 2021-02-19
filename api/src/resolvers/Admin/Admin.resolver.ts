@@ -6,17 +6,18 @@ import {
     Resolver,
 } from 'type-graphql'
 
-import { ContextType } from '../../types'
+import type { ContextType } from '../../types'
 
-import { AdminService } from './Admin.service'
-import { LogInAdminInput } from './mutations/inputs'
-import { VerifyAdminInput } from './mutations/inputs/VerifyAdmin.input'
+import type { AdminService } from './Admin.service'
+import type {
+    LogInAdminInput,
+    VerifyAdminInput,
+} from './mutations/inputs'
 import { LogInAdminPayload } from './mutations/payloads'
 import { AdminType } from './types'
 
 @Resolver(() => AdminType)
 export class AdminResolver {
-
     constructor(
         private readonly adminService: AdminService,
     ) {
@@ -37,5 +38,4 @@ export class AdminResolver {
     ): Promise<AdminType> {
         return this.adminService.verify(input, context)
     }
-
 }

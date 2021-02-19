@@ -5,16 +5,15 @@ import {
     Resolver,
 } from 'type-graphql'
 
-import { ContextType } from '../../types'
+import type { ContextType } from '../../types'
 
-import { VoteInput } from './mutations/inputs'
+import type { VoteInput } from './mutations/inputs'
 import { VotePayload } from './mutations/payloads'
 import { VoteType } from './types'
-import { VoteService } from './Vote.service'
+import type { VoteService } from './Vote.service'
 
 @Resolver(() => VoteType)
 export class VoteResolver {
-
     constructor(
         private readonly service: VoteService,
     ) {
@@ -27,5 +26,4 @@ export class VoteResolver {
     ): Promise<VotePayload> {
         return this.service.create(input, context)
     }
-
 }

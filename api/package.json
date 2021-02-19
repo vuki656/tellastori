@@ -28,6 +28,7 @@
     "validator": "^13.1.17"
   },
   "devDependencies": {
+    "@dvukovic/eslint-config": "^5.2.2",
     "@types/bcryptjs": "^2.4.2",
     "@types/config": "^0.0.36",
     "@types/graphql": "^14.5.0",

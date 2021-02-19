@@ -7,10 +7,10 @@ import {
     Resolver,
 } from 'type-graphql'
 
-import { ContextType } from '../../types'
+import type { ContextType } from '../../types'
 
-import { GetAllPostsArgs } from './args'
-import {
+import type { GetAllPostsArgs as GetAllPostsArguments } from './args'
+import type {
     CreatePostInput,
     DeletePostInput,
 } from './mutations/inputs'
@@ -18,7 +18,7 @@ import {
     CreatePostPayload,
     DeletePostPayload,
 } from './mutations/payloads'
-import { PostService } from './Post.service'
+import type { PostService } from './Post.service'
 import {
     PaginatedPostsType,
     PostType,
@@ -26,7 +26,6 @@ import {
 
 @Resolver(() => PostType)
 export class PostResolver {
-
     constructor(
         private readonly service: PostService,
     ) {
@@ -34,7 +33,7 @@ export class PostResolver {
 
     @Query(() => PaginatedPostsType)
     public async posts(
-        @Arg('input') input: GetAllPostsArgs,
+        @Arg('input') input: GetAllPostsArguments,
         @Ctx() context: ContextType,
     ): Promise<PaginatedPostsType> {
         return this.service.getPaginated(input, context)
@@ -54,5 +53,4 @@ export class PostResolver {
     ) {
         return this.service.delete(input)
     }
-
 }

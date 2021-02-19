@@ -1,17 +1,15 @@
 import { Service } from 'typedi'
-import {
-    EntityRepository,
-    Repository,
-} from 'typeorm'
+import type { Repository } from 'typeorm'
+import { EntityRepository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { PostEntity } from '../../entities'
 import { VoteTypeEnum } from '../../enums'
-import { ContextType } from '../../types'
-import { VoteCountType } from '../Vote/types'
+import type { ContextType } from '../../types'
+import type { VoteCountType } from '../Vote/types'
 
-import { GetAllPostsArgs } from './args'
-import {
+import type { GetAllPostsArgs as GetAllPostsArguments } from './args'
+import type {
     CreatePostInput,
     DeletePostInput,
 } from './mutations/inputs'
@@ -30,7 +28,6 @@ const DEFAULT_LIST_SIZE = 20
 @EntityRepository()
 @Service({ global: true })
 export class PostService {
-
     constructor(
         @InjectRepository(PostEntity) private readonly repository: Repository<PostEntity>,
     ) {
@@ -46,7 +43,7 @@ export class PostService {
     }
 
     public async getPaginated(
-        input: GetAllPostsArgs,
+        input: GetAllPostsArguments,
         context: ContextType
     ) {
         const offset = input.pageNumber * DEFAULT_LIST_SIZE
@@ -75,32 +72,29 @@ export class PostService {
         post: PostEntity,
         context: ContextType
     ) => {
-        const vote = post.votes.find((vote) => {
+        const foundVote = post.votes.find((vote) => {
             return vote.userId === context.userId
         })
 
-        const {
-            negativeCount,
-            positiveCount,
-        } = post.votes.reduce((acc: VoteCountType, vote) => {
-            if (vote.type === VoteTypeEnum.negative) {
-                acc.negativeCount++
+        const stats = post.votes.reduce((accumulator: VoteCountType, value) => {
+            if (value.type === VoteTypeEnum.negative) {
+                accumulator.negativeCount++
             }
 
-            if (vote.type === VoteTypeEnum.positive) {
-                acc.positiveCount++
+            if (value.type === VoteTypeEnum.positive) {
+                accumulator.positiveCount++
             }
 
-            return acc
+            return accumulator
         }, {
             negativeCount: 0,
             positiveCount: 0,
         })
 
         return new PostMetadataType({
-            negativeCount: negativeCount,
-            positiveCount: positiveCount,
-            voteType: vote?.type,
+            negativeCount: stats.negativeCount,
+            positiveCount: stats.positiveCount,
+            voteType: foundVote?.type,
         })
     }
 
@@ -109,5 +103,4 @@ export class PostService {
 
         return new DeletePostPayload(input.id)
     }
-
 }

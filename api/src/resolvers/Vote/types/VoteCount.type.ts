@@ -5,7 +5,6 @@ import {
 
 @ObjectType()
 export class VoteCountType {
-
     @Field()
     negativeCount: number
 
@@ -16,5 +15,4 @@ export class VoteCountType {
         this.positiveCount = voteCount.positiveCount
         this.negativeCount = voteCount.negativeCount
     }
-
 }

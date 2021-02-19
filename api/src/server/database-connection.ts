@@ -1,7 +1,9 @@
 import { Container } from 'typedi'
-import {
+import type {
     Connection,
     ConnectionOptions,
+} from 'typeorm'
+import {
     createConnection,
     useContainer,
 } from 'typeorm'
@@ -10,7 +12,7 @@ import * as entities from '../entities'
 
 useContainer(Container)
 
-export const createDatabaseConnection = (): Promise<Connection> => {
+export const createDatabaseConnection = async (): Promise<Connection> => {
     return createConnection({
         database: process.env.DB_DATABASE,
         entities: Object.values(entities),

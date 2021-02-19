@@ -9,16 +9,14 @@ import {
     verify,
 } from 'jsonwebtoken'
 import { Service } from 'typedi'
-import {
-    EntityRepository,
-    Repository,
-} from 'typeorm'
+import type { Repository } from 'typeorm'
+import { EntityRepository } from 'typeorm'
 import { InjectRepository } from 'typeorm-typedi-extensions'
 
 import { AdminEntity } from '../../entities'
-import { ContextType } from '../../types'
+import type { ContextType } from '../../types'
 
-import {
+import type {
     LogInAdminInput,
     VerifyAdminInput,
 } from './mutations/inputs'
@@ -26,13 +24,12 @@ import { LogInAdminPayload } from './mutations/payloads'
 import { AdminType } from './types'
 
 export type DecodedTokenType = {
-    username: string,
+    username: string
 }
 
 @EntityRepository()
 @Service({ global: true })
 export class AdminService {
-
     constructor(
         @InjectRepository(AdminEntity) private readonly repository: Repository<AdminEntity>,
     ) {
@@ -43,8 +40,8 @@ export class AdminService {
         context: ContextType,
     ): Promise<LogInAdminPayload> {
         const {
-            username,
             password,
+            username,
         } = input
 
         const admin = await this.repository.findOne({ where: { username: username } })
@@ -91,11 +88,10 @@ export class AdminService {
             return new AdminType({ isValid: false })
         }
 
-        await verify(token, context.secret, (error) => {
+        verify(token, context.secret, (error) => {
             if (error) throw new AuthenticationError('Authentication Failed')
         })
 
         return new AdminType({ isValid: true })
     }
-
 }

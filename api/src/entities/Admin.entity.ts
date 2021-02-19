@@ -6,7 +6,6 @@ import {
 
 @Entity('admin')
 export class AdminEntity {
-
     @PrimaryGeneratedColumn('uuid')
     id: string
 
@@ -21,5 +20,4 @@ export class AdminEntity {
         type: 'varchar',
     })
     password: string
-
 }

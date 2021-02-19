@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { buildSchemaSync } from 'type-graphql'
-import { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
+import type { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
 
 import * as resolvers from '../resolvers'
 

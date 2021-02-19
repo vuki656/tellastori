@@ -2,7 +2,7 @@ import { ApolloServer } from 'apollo-server'
 
 import { getSchema } from './schema'
 
-export const startServer = async(): Promise<void> => {
+export const startServer = (): void => {
     const port = 8080
     const server = new ApolloServer({
         context: ({ req }) => {
@@ -12,17 +12,17 @@ export const startServer = async(): Promise<void> => {
                 userId: req.headers.userid,
             }
         },
-        schema: await getSchema(),
+        schema: getSchema(),
     })
 
     server
-    .listen({ port })
-    .then(() => {
-        // eslint-disable-next-line no-console
-        console.log(`======== UP ON ${port} ========`)
-    })
-    .catch((e) => {
-        // eslint-disable-next-line no-console
-        console.log(e)
-    })
+        .listen({ port: port })
+        .then(() => {
+            // eslint-disable-next-line no-console
+            console.log(`======== UP ON ${port} ========`)
+        })
+        .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.log(error)
+        })
 }

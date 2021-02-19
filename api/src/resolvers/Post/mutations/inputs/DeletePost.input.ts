@@ -5,8 +5,6 @@ import {
 
 @InputType()
 export class DeletePostInput {
-
     @Field()
     id: string
-
 }

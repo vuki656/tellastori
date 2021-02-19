@@ -1,12 +1,12 @@
 import { verify } from 'jsonwebtoken'
-import { AuthChecker } from 'type-graphql'
+import type { AuthChecker } from 'type-graphql'
 import validator from 'validator'
 
-import { ContextType } from '../types'
+import type { ContextType } from '../types'
 
 const SECRET = process.env.JWT_SECRET ?? ''
 
-export const authChecker: AuthChecker<ContextType> = async(resolverData): Promise<boolean> => {
+export const authChecker: AuthChecker<ContextType> = (resolverData): boolean => {
     const authPayload = resolverData.context.token
 
     if (!authPayload) {

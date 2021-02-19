@@ -5,8 +5,6 @@ import {
 
 @InputType()
 export class CreatePostInput {
-
     @Field()
     note: string
-
 }

@@ -1,6 +1,6 @@
-import { GraphQLSchema } from 'graphql'
+import type { GraphQLSchema } from 'graphql'
 import { buildSchemaSync } from 'type-graphql'
-import { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
+import type { NonEmptyArray } from 'type-graphql/dist/interfaces/NonEmptyArray'
 import { Container } from 'typedi'
 
 import * as resolvers from '../resolvers'

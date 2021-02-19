@@ -4,14 +4,13 @@ import {
     ObjectType,
 } from 'type-graphql'
 
-import { PostEntity } from '../../../entities'
+import type { PostEntity } from '../../../entities'
 import { VoteType } from '../../Vote/types'
 
 import { PostMetadataType } from './PostMetadata.type'
 
 @ObjectType()
 export class PostType {
-
     @Field()
     id: string
 
@@ -40,5 +39,4 @@ export class PostType {
         this.number = post.number
         this.metadata = metadata
     }
-
 }

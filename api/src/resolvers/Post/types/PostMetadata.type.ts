@@ -7,7 +7,6 @@ import { VoteTypeEnum } from '../../../enums'
 
 @ObjectType()
 export class PostMetadataType {
-
     @Field(() => VoteTypeEnum, { nullable: true })
     voteType?: VoteTypeEnum
 
@@ -17,10 +16,9 @@ export class PostMetadataType {
     @Field()
     negativeCount: number
 
-    constructor(postMetadata: PostMetadataType,) {
+    constructor(postMetadata: PostMetadataType) {
         this.voteType = postMetadata.voteType
         this.positiveCount = postMetadata.positiveCount
         this.negativeCount = postMetadata.negativeCount
     }
-
 }

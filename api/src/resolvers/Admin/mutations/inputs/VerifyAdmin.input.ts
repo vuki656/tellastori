@@ -5,8 +5,6 @@ import {
 
 @InputType()
 export class VerifyAdminInput {
-
     @Field()
     token: string
-
 }
