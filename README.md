@@ -19,7 +19,13 @@ on youtube you know it can be quite fun reading other peoples stories. I wanted 
 - Next
 - Apollo
 - GraphQL
-- StyledComponents
+- Styled Components
+
+##📱Mobile Stack
+- React Native
+- Typescript
+- GraphQL
+- Apollo
 
 ## ☁️ Deployment
 Everything was hosted on `AWS` with the following
