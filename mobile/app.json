@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "Tellastori",
+    "slug": "tellastori",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#FFEEB6"
+    },
+    "primaryColor": "#FFEEB6",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.tellastori",
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "permissions": [],
+      "package": "com.tellastori",
+      "versionCode": 1
+    }
+  }
+}
