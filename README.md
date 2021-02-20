@@ -5,6 +5,8 @@ Website where you can read and post anonymous funny/sad/unbelievable/...etc
 stories from your life. If you ever read r/AskReddit or watched ask reddit videos
 on youtube you know it can be quite fun reading other peoples stories. I wanted to deliver that experience.
 
+📝 Project was live for around 2 months before shutting down. 
+
 ## ⚙️ Backend Stack
 - Node
 - Postgres
@@ -21,7 +23,7 @@ on youtube you know it can be quite fun reading other peoples stories. I wanted 
 - GraphQL
 - Styled Components
 
-##📱Mobile Stack
+## 📱Mobile Stack
 - React Native
 - Typescript
 - GraphQL
