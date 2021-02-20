@@ -3,8 +3,8 @@ import { useRouter } from 'next/router'
 import * as gtag from './googleTag'
 
 type GoogleAnalyticsHandlerType = {
-    onGAVisit: () => void
-    onGALeave: () => void
+    onGAVisit(): void
+    onGALeave(): void
 }
 
 export const useGoogleAnalytics = (): GoogleAnalyticsHandlerType => {

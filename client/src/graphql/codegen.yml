@@ -10,6 +10,7 @@ generates:
     plugins:
       - "add":
           "content":
+            - "eslint-disable-next-line unicorn/no-abusive-eslint-disable"
             - "/* eslint-disable */"
             - "// @generated"
             - "// This file was automatically generated and should not be edited."

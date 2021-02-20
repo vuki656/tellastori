@@ -1,7 +1,4 @@
-import {
-    Button,
-    Panel,
-} from '@dvukovic/dujo-ui'
+import { Button } from '@dvukovic/dujo-ui'
 import styled from 'styled-components'
 
 export const AdminLoginRoot = styled('div')({
@@ -12,8 +9,6 @@ export const AdminLoginRoot = styled('div')({
     justifyContent: 'center',
     width: '100%',
 })
-
-export const AdminLoginPanel = styled(Panel)({})
 
 export const AdminLoginTitle = styled('p')({
     fontSize: '30px',
@@ -26,4 +21,6 @@ export const AdminLoginForm = styled('form')((props) => ({
     marginTop: props.theme.spacing.md,
 }))
 
-export const AdminLoginButton = styled(Button)((props) => ({ marginTop: props.theme.spacing.md }))
+export const AdminLoginButton = styled(Button)((props) => ({
+    marginTop: props.theme.spacing.md,
+}))

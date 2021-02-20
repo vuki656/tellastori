@@ -12,7 +12,7 @@ import * as React from 'react'
 import { PostCard } from '../../../components/PostCard'
 import { DELETE_POST } from '../../../graphql/mutations'
 import { POSTS } from '../../../graphql/queries'
-import {
+import type {
     DeletePostMutation,
     DeletePostMutationVariables,
     PostsQuery,
@@ -43,22 +43,22 @@ export const AdminDashboardPosts: React.FunctionComponent = () => {
     ] = useMutation<DeletePostMutation, DeletePostMutationVariables>(DELETE_POST)
 
     const handleNextClick = () => {
-        setPageNumber((pageNumber) => {
-            return pageNumber + 1
+        setPageNumber((currentPageNumber) => {
+            return currentPageNumber + 1
         })
     }
 
     const handlePreviousClick = () => {
-        setPageNumber((pageNumber) => {
-            return pageNumber - 1
+        setPageNumber((currentPageNumber) => {
+            return currentPageNumber - 1
         })
     }
 
     const handlePostDelete = (id: string) => () => {
-        deletePostMutation({ variables: { input: { id: id } } })
-        .then(() => {
-            refetch()
-        })
+        void deletePostMutation({ variables: { input: { id: id } } })
+            .then(() => {
+                void refetch()
+            })
     }
 
     return (
@@ -84,7 +84,7 @@ export const AdminDashboardPosts: React.FunctionComponent = () => {
                 <HomePostsListButtons>
                     <Button
                         disabled={!postsData?.posts.hasPrevious}
-                        fullWidth
+                        fullWidth={true}
                         onClick={handlePreviousClick}
                         variant="outlined"
                     >
@@ -92,7 +92,7 @@ export const AdminDashboardPosts: React.FunctionComponent = () => {
                     </Button>
                     <Button
                         disabled={!postsData?.posts.hasNext}
-                        fullWidth
+                        fullWidth={true}
                         onClick={handleNextClick}
                     >
                         Next

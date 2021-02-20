@@ -1,8 +1,8 @@
+import type { NormalizedCacheObject } from '@apollo/client'
 import {
     ApolloClient,
     HttpLink,
     InMemoryCache,
-    NormalizedCacheObject,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
 import Cookies from 'js-cookie'
@@ -21,8 +21,8 @@ const createApolloClient = () => {
         uri: publicRuntimeConfig.API_URL,
     })
 
-    const authLink = setContext((operation, prevContext) => {
-        const { headers } = prevContext
+    const authLink = setContext((operation, previousContext) => {
+        const { headers } = previousContext
 
         const userId = Cookies.get('userId') ?? ''
         const token = Cookies.get('token') ?? ''
@@ -38,6 +38,7 @@ const createApolloClient = () => {
 
     return new ApolloClient({
         cache: new InMemoryCache(),
+        // eslint-disable-next-line unicorn/prefer-spread
         link: authLink.concat(httpLink),
         ssrMode: ssrInProgress,
     })

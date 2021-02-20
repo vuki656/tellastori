@@ -23,6 +23,7 @@
     "yup": "^0.30.0"
   },
   "devDependencies": {
+    "@dvukovic/eslint-config": "^5.2.2",
     "@graphql-codegen/add": "^2.0.1",
     "@graphql-codegen/cli": "^1.19.2",
     "@graphql-codegen/typescript": "^1.17.11",
@@ -30,13 +31,9 @@
     "@types/js-cookie": "^2.2.6",
     "@types/styled-components": "^5.1.4",
     "@types/yup": "^0.29.9",
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
     "@typescript-eslint/parser": "^4.8.1",
     "babel-plugin-styled-components": "^1.11.1",
     "eslint": "^7.13.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5"
   }

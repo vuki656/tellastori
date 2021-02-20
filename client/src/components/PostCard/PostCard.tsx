@@ -3,11 +3,11 @@ import dayjs from 'dayjs'
 import * as React from 'react'
 
 import { VOTE } from '../../graphql/mutations'
-import {
+import type {
     VoteMutation,
     VoteMutationVariables,
-    VoteTypeEnum,
 } from '../../graphql/types'
+import { VoteTypeEnum } from '../../graphql/types'
 
 import {
     HomePostCardButtons,
@@ -21,12 +21,12 @@ import {
     HomePostsListLeftButton,
     HomePostsListRightButton,
 } from './PostCard.styles'
-import { HomePostsCardProps } from './PostCard.types'
+import type { HomePostsCardProps } from './PostCard.types'
 
 export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => {
     const {
-        post,
         onChange,
+        post,
     } = props
 
     const [voteMutation] = useMutation<VoteMutation, VoteMutationVariables>(VOTE)
@@ -36,7 +36,7 @@ export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => 
             return
         }
 
-        voteMutation({
+        void voteMutation({
             variables: {
                 input: {
                     postId: post.id,
@@ -44,9 +44,9 @@ export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => 
                 },
             },
         })
-        .then(() => {
-            onChange()
-        })
+            .then(() => {
+                onChange()
+            })
     }
 
     const handlePositiveVote = () => {
@@ -62,7 +62,8 @@ export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => 
             <HomePostsCardContent>
                 <HomePostCardHeader>
                     <HomePostCardNumber>
-                        #{post.number}
+                        #
+                        {post.number}
                     </HomePostCardNumber>
                     <HomePostCardDate>
                         {dayjs(post.date).format('Do MMM YYYY')}
@@ -75,23 +76,35 @@ export const PostCard: React.FunctionComponent<HomePostsCardProps> = (props) => 
             <HomePostCardButtons>
                 <HomePostsListLeftButton
                     active={post.metadata?.voteType === VoteTypeEnum.Positive}
-                    fullWidth
+                    fullWidth={true}
                     onClick={handlePositiveVote}
                     variant="blank"
                 >
-                    <span style={{ paddingRight: '10px' }}>👍</span>
-                    <span style={{ paddingRight: '10px' }}>Approve</span>
-                    <HomePostCardCount>{post.metadata?.positiveCount}</HomePostCardCount>
+                    <span style={{ paddingRight: '10px' }}>
+                        👍
+                    </span>
+                    <span style={{ paddingRight: '10px' }}>
+                        Approve
+                    </span>
+                    <HomePostCardCount>
+                        {post.metadata?.positiveCount}
+                    </HomePostCardCount>
                 </HomePostsListLeftButton>
                 <HomePostsListRightButton
                     active={post.metadata?.voteType === VoteTypeEnum.Negative}
-                    fullWidth
+                    fullWidth={true}
                     onClick={handleNegativeVote}
                     variant="blank"
                 >
-                    <span style={{ paddingRight: '10px' }}>😑</span>
-                    <span style={{ paddingRight: '10px' }}>No</span>
-                    <HomePostCardCount>{post.metadata?.negativeCount}</HomePostCardCount>
+                    <span style={{ paddingRight: '10px' }}>
+                        😑
+                    </span>
+                    <span style={{ paddingRight: '10px' }}>
+                        No
+                    </span>
+                    <HomePostCardCount>
+                        {post.metadata?.negativeCount}
+                    </HomePostCardCount>
                 </HomePostsListRightButton>
             </HomePostCardButtons>
         </HomePostsCardRoot>

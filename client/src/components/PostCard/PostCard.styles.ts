@@ -1,7 +1,7 @@
+import type { Theme } from '@dvukovic/dujo-ui'
 import {
     Button,
     Panel,
-    Theme,
 } from '@dvukovic/dujo-ui'
 import styled from 'styled-components'
 

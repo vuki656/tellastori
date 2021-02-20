@@ -6,7 +6,7 @@ import * as React from 'react'
 
 import { PostCard } from '../../../components/PostCard'
 import { POSTS } from '../../../graphql/queries'
-import {
+import type {
     PostsQuery,
     PostsQueryVariables,
 } from '../../../graphql/types'
@@ -31,14 +31,14 @@ export const HomePosts: React.FunctionComponent = () => {
     )
 
     const handleNextClick = () => {
-        setPageNumber((pageNumber) => {
-            return pageNumber + 1
+        setPageNumber((currentPageNumber) => {
+            return currentPageNumber + 1
         })
     }
 
     const handlePreviousClick = () => {
-        setPageNumber((pageNumber) => {
-            return pageNumber - 1
+        setPageNumber((currentPageNumber) => {
+            return currentPageNumber - 1
         })
     }
 
@@ -57,7 +57,7 @@ export const HomePosts: React.FunctionComponent = () => {
                 <HomePostsListButtons>
                     <Button
                         disabled={!postsData?.posts.hasPrevious}
-                        fullWidth
+                        fullWidth={true}
                         onClick={handlePreviousClick}
                         variant="outlined"
                     >
@@ -65,7 +65,7 @@ export const HomePosts: React.FunctionComponent = () => {
                     </Button>
                     <Button
                         disabled={!postsData?.posts.hasNext}
-                        fullWidth
+                        fullWidth={true}
                         onClick={handleNextClick}
                     >
                         Next

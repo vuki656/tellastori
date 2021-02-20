@@ -1,7 +1,7 @@
-import { LinkProps } from 'next/link'
-import React from 'react'
+import type { LinkProps } from 'next/link'
+import type React from 'react'
 
 export type DrawerButtonProps = LinkProps & {
-    href: string,
+    href: string
     component: React.ReactNode
 }

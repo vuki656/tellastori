@@ -1,7 +1,5 @@
-import {
-    ApolloError,
-    useMutation,
-} from '@apollo/client'
+import type { ApolloError } from '@apollo/client'
+import { useMutation } from '@apollo/client'
 import { TextField } from '@dvukovic/dujo-ui'
 import { useFormik } from 'formik'
 import Cookies from 'js-cookie'
@@ -10,7 +8,7 @@ import * as React from 'react'
 import * as Yup from 'yup'
 
 import { LOGIN_ADMIN } from '../../../graphql/mutations'
-import {
+import type {
     LoginAdminMutation,
     LoginAdminMutationVariables,
 } from '../../../graphql/types'
@@ -18,17 +16,16 @@ import {
 import {
     AdminLoginButton,
     AdminLoginForm,
-    AdminLoginPanel,
     AdminLoginRoot,
     AdminLoginTitle,
 } from './AdminLogin.styles'
-import { AdminLoginFormType } from './AdminLogin.types'
+import type { AdminLoginFormType } from './AdminLogin.types'
 
 const ValidationSchema = Yup.object().shape({
     password: Yup.string()
-    .required('Required'),
+        .required('Required'),
     username: Yup.string()
-    .required('Required'),
+        .required('Required'),
 })
 
 export const AdminLogin: React.FunctionComponent = () => {
@@ -40,11 +37,11 @@ export const AdminLogin: React.FunctionComponent = () => {
     ] = useMutation<LoginAdminMutation, LoginAdminMutationVariables>(LOGIN_ADMIN)
 
     const {
-        handleSubmit,
         errors,
-        values,
         handleChange,
+        handleSubmit,
         setErrors,
+        values,
     } = useFormik<AdminLoginFormType>({
         initialValues: {
             password: '',
@@ -59,33 +56,33 @@ export const AdminLogin: React.FunctionComponent = () => {
                     },
                 },
             })
-            .then((response) => {
-                const token = response?.data?.logInAdmin.token ?? ''
+                .then((response) => {
+                    const token = response?.data?.logInAdmin.token ?? ''
 
-                Cookies.set('token', token)
-                router.push('/admin/dashboard/posts')
-            })
-            .catch((error: ApolloError) => {
-                const errors = error.graphQLErrors[0].extensions?.exception
+                    Cookies.set('token', token)
+                    void router.push('/admin/dashboard/posts')
+                })
+                .catch((error: ApolloError) => {
+                    const formErrors = error.graphQLErrors[0].extensions?.exception
 
-                if (errors) {
-                    setErrors({ ...errors })
-                }
-            })
+                    if (formErrors) {
+                        setErrors({ ...formErrors })
+                    }
+                })
         },
         validationSchema: ValidationSchema,
     })
 
     return (
         <AdminLoginRoot>
-            <AdminLoginPanel>
+            <div>
                 <AdminLoginTitle>
-                📖 Tellastori
+                    📖 Tellastori
                 </AdminLoginTitle>
                 <AdminLoginForm onSubmit={handleSubmit}>
                     <TextField
                         error={Boolean(errors.username)}
-                        fullWidth
+                        fullWidth={true}
                         helperText={errors.username}
                         label="Username"
                         name="username"
@@ -94,7 +91,7 @@ export const AdminLogin: React.FunctionComponent = () => {
                     />
                     <TextField
                         error={Boolean(errors.password)}
-                        fullWidth
+                        fullWidth={true}
                         helperText={errors.password}
                         label="Password"
                         name="password"
@@ -103,14 +100,14 @@ export const AdminLogin: React.FunctionComponent = () => {
                         value={values.password}
                     />
                     <AdminLoginButton
-                        fullWidth
+                        fullWidth={true}
                         loading={loginLoading}
                         type="submit"
                     >
                         Login
                     </AdminLoginButton>
                 </AdminLoginForm>
-            </AdminLoginPanel>
+            </div>
         </AdminLoginRoot>
     )
 }

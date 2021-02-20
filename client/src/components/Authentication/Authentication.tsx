@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import * as React from 'react'
 
 import { VERIFY_ADMIN } from '../../graphql/queries'
-import {
+import type {
     VerifyAdminQuery,
     VerifyAdminQueryVariables,
 } from '../../graphql/types'
@@ -27,7 +27,7 @@ export const Authentication: React.FunctionComponent = (props) => {
                 if (!response?.verifyAdmin.isValid) {
                     Cookies.remove('token')
 
-                    router.push('/admin/login')
+                    void router.push('/admin/login')
                 }
             },
             variables: { input: { token: token } },
@@ -35,13 +35,14 @@ export const Authentication: React.FunctionComponent = (props) => {
     )
 
     React.useEffect(() => {
-        const token = Cookies.get('token') ?? ''
+        const retrievedToken = Cookies.get('token') ?? ''
 
-        setToken(token)
+        setToken(retrievedToken)
         verifyAdmin()
     }, [token])
 
     return (
+        // eslint-disable-next-line react/jsx-no-useless-fragment
         <>
             {data?.verifyAdmin.isValid ? children : null}
         </>

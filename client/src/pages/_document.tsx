@@ -1,6 +1,8 @@
-import Document, {
+import type {
     DocumentContext,
     DocumentInitialProps,
+} from 'next/document'
+import Document, {
     Head,
     Html,
     Main,
@@ -12,13 +14,12 @@ import { ServerStyleSheet } from 'styled-components'
 import { GA_TRACKING_ID } from '../lib/useGoogleAnalitics/googleTag'
 
 class CustomDocument extends Document {
-
-    static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
+    static async getInitialProps(context: DocumentContext): Promise<DocumentInitialProps> {
         const sheet = new ServerStyleSheet()
-        const originalRenderPage = ctx.renderPage
+        const originalRenderPage = context.renderPage
 
         try {
-            ctx.renderPage = () => {
+            context.renderPage = () => {
                 return originalRenderPage({
                     enhanceApp: (App) => {
                         return (props) => {
@@ -28,7 +29,7 @@ class CustomDocument extends Document {
                 })
             }
 
-            const initialProps = await Document.getInitialProps(ctx)
+            const initialProps = await Document.getInitialProps(context)
 
             return {
                 ...initialProps,
@@ -57,7 +58,7 @@ class CustomDocument extends Document {
                         name="theme-color"
                     />
                     <script
-                        async
+                        async={true}
                         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
                     />
                     <script
@@ -80,7 +81,6 @@ class CustomDocument extends Document {
             </Html>
         )
     }
-
 }
 
 export default CustomDocument

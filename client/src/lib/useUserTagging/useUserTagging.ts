@@ -2,7 +2,7 @@ import cuid from 'cuid'
 import Cookies from 'js-cookie'
 
 type UseUserTaggingType = {
-    assignIdToUser: () => void
+    assignIdToUser(): void
 }
 
 export const useUserTagging = (): UseUserTaggingType => {

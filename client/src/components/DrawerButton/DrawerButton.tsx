@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import * as React from 'react'
 
-import { DrawerButtonProps } from './DrawerButton.types'
+import type { DrawerButtonProps } from './DrawerButton.types'
 
 export const DrawerButton: React.FunctionComponent<DrawerButtonProps> = (props) => {
     const {
-        href,
         component,
+        href,
         ...other
     } = props
 

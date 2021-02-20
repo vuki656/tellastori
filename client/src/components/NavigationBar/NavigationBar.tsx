@@ -7,7 +7,9 @@ import { NavigationBarRoot } from './NavigationBar.styles'
 export const NavigationBar: React.FunctionComponent = () => {
     return (
         <NavigationBarRoot>
-            <h3>📖 Tellastori</h3>
+            <h3>
+                📖 Tellastori
+            </h3>
             <HomeCreateNewPostDialog />
         </NavigationBarRoot>
     )

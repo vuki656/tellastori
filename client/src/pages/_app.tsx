@@ -4,7 +4,8 @@ import {
     GlobalStyles,
     ThemeProvider,
 } from '@dvukovic/dujo-ui'
-import NextApp, { AppProps } from 'next/app'
+import type { AppProps } from 'next/app'
+import NextApp from 'next/app'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -26,8 +27,8 @@ const App = (props: AppProps): JSX.Element => {
     const client = useApolloClient(pageProps.initialApolloState)
 
     const {
-        onGAVisit,
         onGALeave,
+        onGAVisit,
     } = useGoogleAnalytics()
 
     const { assignIdToUser } = useUserTagging()
@@ -63,8 +64,7 @@ const App = (props: AppProps): JSX.Element => {
 }
 
 class Root extends NextApp {
-
-    // eslint-disable-next-line require-await
+    // eslint-disable-next-line require-await, @typescript-eslint/require-await
     static async getInitialProps() {
         return { pageProps: {} }
     }
@@ -74,7 +74,6 @@ class Root extends NextApp {
             <App {...this.props} />
         )
     }
-
 }
 
 export default Root

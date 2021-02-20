@@ -21,29 +21,29 @@ export const AdminDashboardMenu: React.FunctionComponent = () => {
         Cookies.remove('token')
         Cookies.remove('userId')
 
-        push('/admin/login')
+        void push('/admin/login')
     }
 
     return (
         <Drawer variant="mini">
             <DrawerButton
-                component={
+                component={(
                     <DrawerIcon
                         icon={<ListIcon />}
                         selected={pathname?.includes('posts')}
                         tooltipText="Posts"
                     />
-                }
+                )}
                 href="/admin/dashboard/posts"
             />
             <DrawerButton
-                component={
+                component={(
                     <DrawerIcon
                         icon={<PencilIcon />}
                         selected={pathname?.includes('users')}
                         tooltipText="Users"
                     />
-                }
+                )}
                 href="/admin/dashboard/newPost"
             />
             <DrawerIcon

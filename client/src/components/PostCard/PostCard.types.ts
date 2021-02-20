@@ -1,4 +1,4 @@
-import { VoteTypeEnum } from '../../graphql/types'
+import type { VoteTypeEnum } from '../../graphql/types'
 
 type PostMetadataType = {
     voteType?: VoteTypeEnum | null
@@ -7,14 +7,14 @@ type PostMetadataType = {
 }
 
 type PostType = {
-    id: string,
-    note: string,
-    date: string,
+    id: string
+    note: string
+    date: string
     number: number
     metadata?: PostMetadataType | null
 }
 
 export type HomePostsCardProps = {
-    post: PostType,
-    onChange: () => void
+    post: PostType
+    onChange(): void
 }
