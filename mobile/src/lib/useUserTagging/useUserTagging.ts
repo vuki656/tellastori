@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import cuid from 'cuid'
 
-import { UseUserTaggingValue } from './useUserTagging.types'
+import type { UseUserTaggingValue } from './useUserTagging.types'
 
 export const useUserTagging = (): UseUserTaggingValue => {
-    const assignId = async() => {
+    const assignId = async () => {
         const userId = await AsyncStorage.getItem('userId')
 
         if (!userId) {

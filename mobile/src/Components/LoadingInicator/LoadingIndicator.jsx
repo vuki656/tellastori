@@ -5,6 +5,8 @@ import {
     View,
 } from 'react-native'
 
+const styles = StyleSheet.create({ root: { marginTop: 50 } })
+
 export const LoadingIndicator = () => {
     return (
         <View style={styles.root}>
@@ -15,5 +17,3 @@ export const LoadingIndicator = () => {
         </View>
     )
 }
-
-const styles = StyleSheet.create({ root: { marginTop: 50 } })

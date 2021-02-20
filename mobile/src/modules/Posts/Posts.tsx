@@ -13,94 +13,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { LoadingIndicator } from '../../Components/LoadingInicator'
 import { POSTS } from '../../graphql/queries'
-import {
+import type {
     PostsQuery,
     PostsQueryVariables,
 } from '../../graphql/types'
 
-import { StylePropsType } from './Posts.types'
+import type { StylePropsType } from './Posts.types'
 import { PostsCard } from './PostsCard'
 
 dayjs.extend(advancedFormat)
-
-export const Posts = () => {
-    const [pageNumber, setPageNumber] = React.useState(0)
-    const scrollViewRef = React.useRef<ScrollView>(null)
-
-    const {
-        data,
-        refetch,
-        loading,
-    } = useQuery<PostsQuery, PostsQueryVariables>(
-        POSTS,
-        { variables: { input: { pageNumber: pageNumber } } }
-    )
-
-    const scrollToTop = () => {
-        scrollViewRef.current?.scrollTo({
-            animated: false,
-            x: 0,
-            y: 0,
-        })
-    }
-
-    const handleNextClick = () => {
-        setPageNumber((pageNumber) => {
-            return pageNumber + 1
-        })
-        scrollToTop()
-    }
-
-    const handlePreviousClick = () => {
-        setPageNumber((pageNumber) => {
-            return pageNumber - 1
-        })
-        scrollToTop()
-    }
-
-    return (
-        <SafeAreaView style={styles().safeArea}>
-            <View style={styles().root}>
-                <View style={styles().titleWrapper}>
-                    <Text style={styles().title}>📖 Tellastori</Text>
-                </View>
-                {loading ? <LoadingIndicator /> : (
-                    <ScrollView ref={scrollViewRef}>
-                        <View style={styles().postsWrapper}>
-                            {data?.posts.list.map((post) => {
-                                return (
-                                    <PostsCard
-                                        key={post.id}
-                                        onChange={refetch}
-                                        post={post}
-                                    />
-                                )
-                            })}
-                            <View style={styles().paginationButtonsWrapper}>
-                                <TouchableOpacity
-                                    disabled={!data?.posts.hasPrevious}
-                                    onPress={handlePreviousClick}
-                                >
-                                    <Text style={styles({ disabled: !data?.posts.hasPrevious }).paginationButton}>
-                                        Previous
-                                    </Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    disabled={!data?.posts.hasNext}
-                                    onPress={handleNextClick}
-                                >
-                                    <Text style={styles({ disabled: !data?.posts.hasNext }).paginationButton}>
-                                        Next
-                                    </Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </ScrollView>
-                )}
-            </View>
-        </SafeAreaView>
-    )
-}
 
 const styles = (styleProps?: StylePropsType) => StyleSheet.create({
     paginationButton: {
@@ -148,3 +69,86 @@ const styles = (styleProps?: StylePropsType) => StyleSheet.create({
         width: '100%',
     },
 })
+
+export const Posts = () => {
+    const [pageNumber, setPageNumber] = React.useState(0)
+    const scrollViewReference = React.useRef<ScrollView>(null)
+
+    const {
+        data,
+        loading,
+        refetch,
+    } = useQuery<PostsQuery, PostsQueryVariables>(
+        POSTS,
+        { variables: { input: { pageNumber: pageNumber } } }
+    )
+
+    const scrollToTop = () => {
+        scrollViewReference.current?.scrollTo({
+            animated: false,
+            x: 0,
+            y: 0,
+        })
+    }
+
+    const handleNextClick = () => {
+        setPageNumber((currentPageNumber) => {
+            return currentPageNumber + 1
+        })
+        scrollToTop()
+    }
+
+    const handlePreviousClick = () => {
+        setPageNumber((currentPageNumber) => {
+            return currentPageNumber - 1
+        })
+        scrollToTop()
+    }
+
+    return (
+        <SafeAreaView style={styles().safeArea}>
+            <View style={styles().root}>
+                <View style={styles().titleWrapper}>
+                    <Text style={styles().title}>
+                        📖 Tellastori
+                    </Text>
+                </View>
+                {loading
+                    ? <LoadingIndicator />
+                    : (
+                        <ScrollView ref={scrollViewReference}>
+                            <View style={styles().postsWrapper}>
+                                {data?.posts.list.map((post) => {
+                                    return (
+                                        <PostsCard
+                                            key={post.id}
+                                            onChange={refetch}
+                                            post={post}
+                                        />
+                                    )
+                                })}
+                                <View style={styles().paginationButtonsWrapper}>
+                                    <TouchableOpacity
+                                        disabled={!data?.posts.hasPrevious}
+                                        onPress={handlePreviousClick}
+                                    >
+                                        <Text style={styles({ disabled: !data?.posts.hasPrevious }).paginationButton}>
+                                            Previous
+                                        </Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        disabled={!data?.posts.hasNext}
+                                        onPress={handleNextClick}
+                                    >
+                                        <Text style={styles({ disabled: !data?.posts.hasNext }).paginationButton}>
+                                            Next
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </ScrollView>
+                    )}
+            </View>
+        </SafeAreaView>
+    )
+}

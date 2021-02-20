@@ -3,5 +3,5 @@ export type PostFormTypes = {
 }
 
 export type StylePropsType = {
-    disablePosting: boolean,
+    disablePosting: boolean
 }

@@ -9,98 +9,16 @@ import {
 } from 'react-native'
 
 import { VOTE } from '../../../graphql/mutations'
-import {
+import type {
     VoteMutation,
     VoteMutationVariables,
-    VoteTypeEnum,
 } from '../../../graphql/types'
+import { VoteTypeEnum } from '../../../graphql/types'
 
-import {
+import type {
     PostsPostProps,
     StylesPropsType,
 } from './PostsCard.types'
-
-export const PostsCard: React.FunctionComponent<PostsPostProps> = (props) => {
-    const {
-        post,
-        onChange,
-    } = props
-
-    const {
-        metadata,
-        date,
-        id,
-        note,
-        number,
-    } = post
-
-    const [voteMutation] = useMutation<VoteMutation, VoteMutationVariables>(VOTE)
-
-    const handleVote = (voteType: VoteTypeEnum) => {
-        if (metadata?.voteType) {
-            return
-        }
-
-        voteMutation({
-            variables: {
-                input: {
-                    postId: id,
-                    voteType: voteType,
-                },
-            },
-        })
-        .then(() => {
-            onChange()
-        })
-    }
-
-    const handlePositiveVote = () => {
-        handleVote(VoteTypeEnum.Positive)
-    }
-
-    const handleNegativeVote = () => {
-        handleVote(VoteTypeEnum.Negative)
-    }
-
-    return (
-        <View
-            key={post.id}
-            style={styles().root}
-        >
-            <View style={styles().content}>
-                <View style={styles().topBar}>
-                    <Text style={styles().number}>#{number}</Text>
-                    <Text style={styles().date}>{dayjs(date).format('Do MMM YYYY')}</Text>
-                </View>
-                <Text style={styles().note}>
-                    {note}
-                </Text>
-            </View>
-            <View style={styles().buttonsWrapper}>
-                <View style={styles({ active: metadata?.voteType === VoteTypeEnum.Positive }).button}>
-                    <TouchableOpacity onPress={handlePositiveVote}>
-                        <Text style={styles().likeButton}>
-                            👍 Like
-                            <Text style={styles().count}>
-                                {' '}{metadata?.positiveCount}
-                            </Text>
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles({ active: metadata?.voteType === VoteTypeEnum.Negative }).button}>
-                    <TouchableOpacity onPress={handleNegativeVote}>
-                        <Text style={styles().dislikeButton}>
-                            👎 Dislike
-                            <Text style={styles().count}>
-                                {' '}{metadata?.negativeCount}
-                            </Text>
-                        </Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
-    )
-}
 
 const styles = (stylesProps?: StylesPropsType) => StyleSheet.create({
     button: {
@@ -152,3 +70,96 @@ const styles = (stylesProps?: StylesPropsType) => StyleSheet.create({
         paddingBottom: 10,
     },
 })
+
+export const PostsCard: React.FunctionComponent<PostsPostProps> = (props) => {
+    const {
+        onChange,
+        post,
+    } = props
+
+    const {
+        date,
+        id,
+        metadata,
+        note,
+        number,
+    } = post
+
+    const [voteMutation] = useMutation<VoteMutation, VoteMutationVariables>(VOTE)
+
+    const handleVote = (voteType: VoteTypeEnum) => {
+        if (metadata?.voteType) {
+            return
+        }
+
+        void voteMutation({
+            variables: {
+                input: {
+                    postId: id,
+                    voteType: voteType,
+                },
+            },
+        })
+            .then(() => {
+                onChange()
+            })
+    }
+
+    const handlePositiveVote = () => {
+        handleVote(VoteTypeEnum.Positive)
+    }
+
+    const handleNegativeVote = () => {
+        handleVote(VoteTypeEnum.Negative)
+    }
+
+    return (
+        <View
+            key={id}
+            style={styles().root}
+        >
+            <View style={styles().content}>
+                <View style={styles().topBar}>
+                    <Text style={styles().number}>
+                        #
+                        {number}
+                    </Text>
+                    <Text style={styles().date}>
+                        {dayjs(date).format('Do MMM YYYY')}
+                    </Text>
+                </View>
+                <Text style={styles().note}>
+                    {note}
+                </Text>
+            </View>
+            <View style={styles().buttonsWrapper}>
+                <View style={styles({ active: metadata?.voteType === VoteTypeEnum.Positive }).button}>
+                    <TouchableOpacity onPress={handlePositiveVote}>
+                        <Text style={styles().likeButton}>
+                            <Text>
+                                👍 Like
+                            </Text>
+                            <Text style={styles().count}>
+                                {' '}
+                                {metadata?.positiveCount}
+                            </Text>
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={styles({ active: metadata?.voteType === VoteTypeEnum.Negative }).button}>
+                    <TouchableOpacity onPress={handleNegativeVote}>
+                        <View style={styles().dislikeButton}>
+                            <Text>
+                                👎 Dislike
+                            </Text>
+                            <Text style={styles().count}>
+                                {' '}
+                                {metadata?.negativeCount}
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    )
+}

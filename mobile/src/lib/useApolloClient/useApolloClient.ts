@@ -12,8 +12,8 @@ export const useApolloClient = () => {
         uri: 'http://tellastori-api-1614044971.us-east-1.elb.amazonaws.com/',
     })
 
-    const authLink = setContext(async(operation, prevContext) => {
-        const { headers } = prevContext
+    const authLink = setContext(async (operation, previousContext) => {
+        const { headers } = previousContext
 
         const userId = await AsyncStorage.getItem('userId')
 
@@ -27,6 +27,7 @@ export const useApolloClient = () => {
 
     return new ApolloClient({
         cache: new InMemoryCache(),
+        // eslint-disable-next-line unicorn/prefer-spread
         link: authLink.concat(httpLink),
     })
 }

@@ -1,3 +1,3 @@
 export type UseUserTaggingValue = {
-    assignIdToUser: () => void
+    assignIdToUser(): void
 }

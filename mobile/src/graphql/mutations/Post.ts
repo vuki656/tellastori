@@ -12,4 +12,3 @@ export const CREATE_POST = gql`
     }
     ${POST_PAYLOAD}
 `
-
