@@ -26,6 +26,7 @@ Everything was hosted on `AWS` with the following
 - Database: RDS
 - Containers: ECR
 - Instances: EC2 (Fargate)
+- Other AWS glue necessary
 
 Containerized (docker) `API` and `CLIENT` where automatically deployed to `ECR` on passing `PR` to `master` trough `github actions`
 
