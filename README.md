@@ -41,7 +41,7 @@ Containerized (docker) `API` and `CLIENT` where automatically deployed to `ECR` 
 Deployment would run only if 
 - API schema build successfully
 - Client built successfully
-- Client list passed
-- API linet passed
+- Client lint passed
+- API lint passed
   
 Check the pipelines in `./github/workflows` for details
